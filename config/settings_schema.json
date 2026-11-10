@@ -177,7 +177,7 @@
       {
         "type": "checkbox",
         "id": "show_cart_bar",
-        "label": "Show the sticky cart bar on phones",
+        "label": "Show the floating cart pill when the cart has items",
         "default": true
       }
     ]

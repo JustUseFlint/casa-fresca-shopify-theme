@@ -55,6 +55,8 @@
           meal_other: {{ 'cart.meal_other' | t | json }},
           left_days: {{ 'ordering.left_days' | t: d: '__d__', h: '__h__' | json }},
           left_hours: {{ 'ordering.left_hours' | t: h: '__h__', m: '__m__' | json }},
+          search_none: {{ 'collections.search_none' | t: q: '__q__' | json }},
+          meals_count_one: {{ 'collections.search_count_one' | t: n: '__n__' | json }},
           left_minutes: {{ 'ordering.left_minutes' | t: m: '__m__' | json }}
         }
       };

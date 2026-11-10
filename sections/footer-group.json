@@ -5,11 +5,65 @@
     "footer": {
       "type": "footer",
       "blocks": {
-        "menu_shop": { "type": "menu", "settings": { "heading": "Order", "menu": "main-menu" } },
-        "menu_info": { "type": "menu", "settings": { "heading": "Info", "menu": "footer" } },
-        "contact": { "type": "contact", "settings": { "heading": "Say hello" } }
+        "order": {
+          "type": "links",
+          "settings": {
+            "heading": "Order",
+            "label_1": "This week's menu",
+            "url_1": "shopify://collections/weekly-meals",
+            "label_2": "All meals",
+            "url_2": "shopify://collections/all-meals",
+            "label_3": "Catering",
+            "url_3": "shopify://pages/catering",
+            "label_4": "Monthly meals",
+            "url_4": "shopify://pages/monthly-meals"
+          }
+        },
+        "info": {
+          "type": "links",
+          "settings": {
+            "heading": "Info",
+            "label_1": "How it works",
+            "url_1": "shopify://pages/how-it-works",
+            "label_2": "Pickup and delivery",
+            "url_2": "shopify://pages/locations",
+            "label_3": "FAQs",
+            "url_3": "shopify://pages/faqs",
+            "label_4": "About us",
+            "url_4": "shopify://pages/about-us",
+            "label_5": "Meal prep in Crawfordsville",
+            "url_5": "shopify://pages/crawfordsville-meal-prep"
+          }
+        },
+        "more": {
+          "type": "links",
+          "settings": {
+            "heading": "Eat well",
+            "label_1": "Macro calculator",
+            "url_1": "shopify://pages/macro-calculator",
+            "label_2": "Nutrition quiz",
+            "url_2": "shopify://pages/nutrition-quiz",
+            "label_3": "Blog",
+            "url_3": "shopify://blogs/news",
+            "label_4": "Recipes",
+            "url_4": "shopify://blogs/recipes",
+            "label_5": "Contact",
+            "url_5": "shopify://pages/contact"
+          }
+        },
+        "contact": {
+          "type": "contact",
+          "settings": {
+            "heading": "Say hello"
+          }
+        }
       },
-      "block_order": ["menu_shop", "menu_info", "contact"],
+      "block_order": [
+        "order",
+        "info",
+        "more",
+        "contact"
+      ],
       "settings": {
         "cta_heading": "Dinner's handled. <em>Every week.</em>",
         "cta_label": "Plan catering",
@@ -18,5 +72,7 @@
       }
     }
   },
-  "order": ["footer"]
+  "order": [
+    "footer"
+  ]
 }

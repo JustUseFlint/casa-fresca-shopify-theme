@@ -1,0 +1,19 @@
+<section class="section{% if section.settings.dark %} section--dark{% endif %}">
+  <div class="page-width" style="display:grid;gap:22px;max-width:1080px">
+    {%- if section.settings.kicker != blank -%}<p class="kicker" data-reveal>{{ section.settings.kicker }}</p>{%- endif -%}
+    <blockquote class="big-quote" data-split>{{ section.settings.quote }}</blockquote>
+    {%- if section.settings.source != blank -%}<p class="muted" data-reveal>{{ section.settings.source }}</p>{%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Big quote",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Small heading" },
+    { "type": "textarea", "id": "quote", "label": "Quote" },
+    { "type": "text", "id": "source", "label": "Source" },
+    { "type": "checkbox", "id": "dark", "label": "Dark background", "default": true }
+  ],
+  "presets": [{ "name": "Big quote" }]
+}
+{% endschema %}

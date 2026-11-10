@@ -1,0 +1,114 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "kicker": "Pickup and delivery",
+        "heading": "Where to <em>get your meals</em>",
+        "text": "<p>Meals are ready every Tuesday, at our pickup cooler in Crawfordsville or delivered to your door.</p>",
+        "product": "beef-burger-bowl",
+        "button_label": "See this week's menu",
+        "button_link": "shopify://collections/weekly-meals"
+      }
+    },
+    "places": {
+      "type": "pickup-delivery",
+      "blocks": {
+        "place_1": {
+          "type": "place",
+          "settings": {
+            "icon": "pin",
+            "title": "Pickup at Ironsmith's Gym",
+            "address": "1714 E Main St, Crawfordsville, IN",
+            "text": "<p>Our pickup cooler. Collect your order there on Tuesday.</p>",
+            "link": "https://www.google.com/maps/search/?api=1&query=Ironsmith%27s+Gym+1714+E+Main+St+Crawfordsville+IN",
+            "link_label": "Get directions"
+          }
+        },
+        "place_2": {
+          "type": "place",
+          "settings": {
+            "icon": "truck",
+            "title": "Delivered to your door",
+            "address": "",
+            "text": "<p>Local delivery on Tuesday. The delivery options for your address, and any fee, show at checkout.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        }
+      },
+      "block_order": [
+        "place_1",
+        "place_2"
+      ],
+      "settings": {
+        "kicker": "Tuesday",
+        "heading": "Two easy ways to <em>get your meals</em>",
+        "sand": false
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "q": "Where can I pick up?",
+            "a": "<p>At the cooler in Ironsmith’s Gym, 1714 E Main St, Crawfordsville, on Tuesday.</p>"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "q": "Do you deliver?",
+            "a": "<p>Yes, to your door on Tuesday. The delivery options for your address, and any fee, show at checkout.</p>"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "q": "Can someone else pick up my order?",
+            "a": "<p>Add their name in “Order special instructions” in your cart so we know who is coming.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3"
+      ],
+      "settings": {
+        "kicker": "Good to know",
+        "heading": "Pickup and delivery questions",
+        "dark": false
+      }
+    },
+    "form": {
+      "type": "contact-form",
+      "settings": {
+        "anchor": "contact",
+        "kicker": "Questions",
+        "heading": "Not sure which <em>works for you?</em>",
+        "text": "",
+        "event_fields": false,
+        "message_label": "Message",
+        "button_label": "Send message",
+        "success": "Thanks! We will get back to you soon.",
+        "sand": true
+      }
+    },
+    "content": {
+      "type": "main-page",
+      "settings": {
+        "hide_title": true
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "places",
+    "faq",
+    "form",
+    "content"
+  ]
+}

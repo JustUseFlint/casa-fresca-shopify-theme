@@ -1,12 +1,10 @@
-{%- comment -%} Mobile-only sticky bar: Cart · N · $X · Checkout {%- endcomment -%}
+{%- comment -%} Floating cart pill: same look as the header cart button. Shows on every page once the cart has items. {%- endcomment -%}
 {%- if settings.show_cart_bar -%}
-<div class="cart-bar{% if cart.item_count > 0 %} is-visible{% endif %}" data-cart-bar>
-  <button type="button" class="cart-bar__open" data-cart-open aria-haspopup="dialog" aria-controls="CartDrawer" aria-expanded="false">
-    {% render 'icon', name: 'bag' %}
-    <span>{{ 'cart.title' | t }}</span><span class="sep" aria-hidden="true">&middot;</span>
-    <span><span data-cart-count>{{ cart.item_count }}</span> <span data-cart-label>{% if cart.item_count == 1 %}{{ 'cart.meal_one' | t }}{% else %}{{ 'cart.meal_other' | t }}{% endif %}</span></span><span class="sep" aria-hidden="true">&middot;</span>
-    <span data-cart-total>{{ cart.total_price | money }}</span>
-  </button>
-  <a class="btn btn--gold cart-bar__checkout" href="{{ routes.root_url }}checkout" data-checkout>{{ 'cart.checkout' | t }}</a>
-</div>
+<button type="button" class="cart-pill{% if cart.item_count > 0 %} is-visible is-instant{% endif %}" data-cart-bar data-cart-open aria-haspopup="dialog" aria-controls="CartDrawer" aria-expanded="false">
+  {% render 'icon', name: 'bag' %}
+  <span class="cart-pill__label">{{ 'cart.view' | t }}</span>
+  <span class="cart-pill__total" data-cart-total>{{ cart.total_price | money }}</span>
+  <span class="cart-btn__count" data-cart-count>{{ cart.item_count }}</span>
+  <span class="visually-hidden"><span data-cart-label>{% if cart.item_count == 1 %}{{ 'cart.meal_one' | t }}{% else %}{{ 'cart.meal_other' | t }}{% endif %}</span></span>
+</button>
 {%- endif -%}

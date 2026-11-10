@@ -1,25 +1,14 @@
-{%- paginate search.results by 24 -%}
-<section class="section" style="padding-top:clamp(40px,7vw,96px)">
-  <div class="page-width">
-    <h1 class="h-1" data-split style="margin-bottom:24px">{{ 'search.title' | t }}</h1>
-    <form action="{{ routes.search_url }}" method="get" role="search" style="display:flex;gap:10px;max-width:640px;margin-bottom:36px" data-search-form>
-      <label class="visually-hidden" for="SearchQ">{{ 'search.label' | t }}</label>
-      <input class="input" type="search" id="SearchQ" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.placeholder' | t }}" autocomplete="off">
-      <input type="hidden" name="type" value="product">
-      <button class="btn btn--tomato" type="submit">{% render 'icon', name: 'search' %}<span class="visually-hidden">{{ 'general.search' | t }}</span></button>
-    </form>
-    {%- if search.performed -%}
-      <p class="muted" style="margin-bottom:22px" role="status">{{ 'search.results' | t: count: search.results_count, terms: search.terms }}</p>
-      <div class="meal-grid" data-stagger data-grid>
-        {%- for item in search.results -%}
-          {%- if item.object_type == 'product' -%}{% render 'meal-card', product: item, sid: section.id %}{%- endif -%}
-        {%- endfor -%}
-      </div>
-      {% render 'pagination', paginate: paginate %}
-    {%- endif -%}
+{%- comment -%} Site search is switched off in this theme. Meals are searched from the menu pages instead. {%- endcomment -%}
+<section class="section">
+  <div class="page-width empty" style="min-height:50vh;align-content:center">
+    <p class="kicker">{{ 'general.order_this_week' | t }}</p>
+    <h1 class="h-2">{{ 'search.moved' | t }}</h1>
+    <div class="btn-row" style="justify-content:center">
+      <a class="btn btn--tomato" href="{{ settings.weekly_collection.url | default: routes.all_products_collection_url }}">{{ 'collections.this_week' | t }}</a>
+      {%- if settings.all_collection != blank -%}<a class="btn btn--ghost" href="{{ settings.all_collection.url }}">{{ 'collections.all_meals' | t }}</a>{%- endif -%}
+    </div>
   </div>
 </section>
-{%- endpaginate -%}
 {% schema %}
-{ "name": "Search results", "settings": [] }
+{ "name": "Search", "settings": [] }
 {% endschema %}

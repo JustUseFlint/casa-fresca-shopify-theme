@@ -1,0 +1,139 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "kicker": "About Casa Fresca",
+        "heading": "Every meal <em>tells a story</em>",
+        "text": "<p>Casa Fresca is Sergio Landaverde’s kitchen. He grew up in El Salvador surrounded by the aromas of fresh pupusas, tamales and stews, and brought that love of cooking to the United States.</p>",
+        "product": "creamy-garlic-shrimp-over-rice-w-asparagus"
+      }
+    },
+    "story": {
+      "type": "text-cards",
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "label": "The training",
+            "title": "Years in top restaurant kitchens",
+            "text": "<p>Sergio worked as a career chef in high-end restaurants, from mastering knife work to perfecting complex dishes. That is where the precision comes from.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "label": "The leap",
+            "title": "Something of his own",
+            "text": "<p>He started Casa Fresca to blend that professional training with the soul of the food he grew up with, and to build a better life for his wife and three children.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "label": "Today",
+            "title": "A family business, every week",
+            "text": "<p>Meals made every week, coolers stocked around town, and catering for everything from rehearsal dinners to company dinners for 160.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3"
+      ],
+      "settings": {
+        "kicker": "Sergio’s story",
+        "heading": "From El Salvador, by way of <em>fine-dining kitchens</em>",
+        "dark": false
+      }
+    },
+    "mission": {
+      "type": "big-quote",
+      "settings": {
+        "kicker": "Our mission",
+        "quote": "“To deliver delicious, high-quality meals that nourish the body and soul.”",
+        "source": "Casa Fresca",
+        "dark": true
+      }
+    },
+    "values": {
+      "type": "text-cards",
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "label": "",
+            "title": "Fresh, never frozen",
+            "text": "<p>Premium ingredients, cooked fresh every week.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "label": "",
+            "title": "Chef-crafted",
+            "text": "<p>Restaurant-quality meals from a career chef, portioned to fuel your week.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "label": "",
+            "title": "Part of the family",
+            "text": "<p>“Sergio is a hard working, kind human being who treats all of his customers like family.” Adam Welcher, Google review</p>",
+            "link": "",
+            "link_label": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3"
+      ],
+      "settings": {
+        "kicker": "What we promise",
+        "heading": "Fresh, consistent, <em>personal</em>",
+        "sand": false
+      }
+    },
+    "community": {
+      "type": "image-feature",
+      "settings": {
+        "product": "buffalo-chicken-mac-n-cheese",
+        "kicker": "In the community",
+        "heading": "Proud to <em>pitch in</em>",
+        "text": "<p>Casa Fresca was a Harvest Partner Sponsor of the 2026 Davidson Greenhouse Harvest Festival, September 26–27: a weekend of live music, local vendors, food and family fun.</p>",
+        "dark": false,
+        "flip": true,
+        "button_label": "See this week's menu",
+        "button_link": "shopify://collections/weekly-meals"
+      }
+    },
+    "content": {
+      "type": "main-page",
+      "settings": {
+        "hide_title": true
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "story",
+    "mission",
+    "values",
+    "community",
+    "content"
+  ]
+}

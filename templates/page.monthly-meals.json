@@ -1,0 +1,83 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "kicker": "Monthly meals",
+        "heading": "Eat well <em>all month long</em>",
+        "text": "<p>Fresh meals every week of the month, without a subscription. Pick what you want each week and we cook it.</p>",
+        "product": "teriyaki-ground-turkey-bowl",
+        "button_label": "See this week's menu",
+        "button_link": "shopify://collections/weekly-meals"
+      }
+    },
+    "cards": {
+      "type": "text-cards",
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "label": "Every week",
+            "title": "A new menu",
+            "text": "<p>A short menu of new meals and returning favourites goes up every week.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "label": "Your call",
+            "title": "Order the weeks you want",
+            "text": "<p>There is nothing to sign up for. Order by Thursday at 6 PM for the weeks you want meals.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "label": "Bigger orders",
+            "title": "Feeding a household or an office?",
+            "text": "<p>Call or text <a href=\"tel:+13172942433\">(317) 294-2433</a> to talk about regular or larger orders.</p>",
+            "link": "shopify://pages/contact",
+            "link_label": "Get in touch"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3"
+      ],
+      "settings": {
+        "kicker": "How it works",
+        "heading": "A month of meals, <em>one week at a time</em>",
+        "sand": true
+      }
+    },
+    "menu": {
+      "type": "featured-meals",
+      "settings": {
+        "collection": "weekly-meals",
+        "limit": 6,
+        "available_only": true,
+        "kicker": "Start this week",
+        "heading": "This week’s <em>menu</em>",
+        "link_label": "See the full menu"
+      }
+    },
+    "content": {
+      "type": "main-page",
+      "settings": {
+        "hide_title": true
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "cards",
+    "menu",
+    "content"
+  ]
+}

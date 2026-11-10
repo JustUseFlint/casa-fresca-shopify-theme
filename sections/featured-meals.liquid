@@ -1,0 +1,44 @@
+{%- liquid
+  assign coll = section.settings.collection
+  if coll == blank
+    assign coll = settings.weekly_collection
+  endif
+-%}
+<section class="section{% if section.settings.sand %} section--sand{% endif %}" aria-labelledby="FM-{{ section.id }}">
+  <div class="page-width">
+    <div class="sec-head sec-head--row">
+      <div style="display:grid;gap:14px">
+        {%- if section.settings.kicker != blank -%}<p class="kicker" data-reveal>{{ section.settings.kicker }}</p>{%- endif -%}
+        <h2 class="h-2" id="FM-{{ section.id }}" data-split>{{ section.settings.heading }}</h2>
+        {%- if section.settings.text != blank -%}<p class="lede" data-reveal>{{ section.settings.text }}</p>{%- endif -%}
+      </div>
+      {%- if coll != blank -%}<a class="link-arrow" href="{{ coll.url }}" data-reveal>{{ section.settings.link_label }}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+    </div>
+    <div class="meal-grid" data-stagger>
+      {%- assign shown = 0 -%}
+      {%- for p in coll.products -%}
+        {%- if section.settings.available_only and p.available == false -%}{%- continue -%}{%- endif -%}
+        {%- if shown >= section.settings.limit -%}{%- break -%}{%- endif -%}
+        {% render 'meal-card', product: p, show_description: section.settings.show_description, sid: section.id %}
+        {%- assign shown = shown | plus: 1 -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Featured meals",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Defaults to the weekly menu set in Theme settings." },
+    { "type": "range", "id": "limit", "label": "Meals", "min": 2, "max": 12, "step": 1, "default": 6 },
+    { "type": "checkbox", "id": "available_only", "label": "Only meals you can order now", "default": true },
+    { "type": "checkbox", "id": "show_description", "label": "Show short descriptions", "default": false },
+    { "type": "text", "id": "kicker", "label": "Small heading", "default": "This week" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "On the menu <em>right now</em>" },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "See the full menu" },
+    { "type": "checkbox", "id": "sand", "label": "Tinted background", "default": false }
+  ],
+  "presets": [{ "name": "Featured meals" }]
+}
+{% endschema %}

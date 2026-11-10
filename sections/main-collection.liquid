@@ -19,12 +19,22 @@
     <h1 class="h-1" data-split>{{ collection.title }}</h1>
     <span class="coll-count" data-reveal>{{ 'collections.count' | t: count: collection.products_count }}</span>
     {%- if collection.description != blank -%}<div class="lede rte" data-reveal>{{ collection.description }}</div>{%- endif -%}
-    {%- if weekly != blank or all != blank -%}
-      <nav class="coll-tabs" aria-label="{{ 'collections.menus' | t }}" data-reveal>
-        {%- if weekly != blank -%}<a class="tab" href="{{ weekly.url }}"{% if weekly.handle == collection.handle %} aria-current="page"{% endif %}>{{ 'collections.this_week' | t }}</a>{%- endif -%}
-        {%- if all != blank -%}<a class="tab" href="{{ all.url }}"{% if all.handle == collection.handle %} aria-current="page"{% endif %}>{{ 'collections.all_meals' | t }}</a>{%- endif -%}
-      </nav>
-    {%- endif -%}
+    <div class="coll-switch" data-coll-switch data-reveal>
+      {%- if weekly != blank or all != blank -%}
+        <nav class="coll-tabs" aria-label="{{ 'collections.menus' | t }}">
+          {%- if weekly != blank -%}<a class="tab" href="{{ weekly.url }}"{% if weekly.handle == collection.handle %} aria-current="page"{% endif %}>{{ 'collections.this_week' | t }}</a>{%- endif -%}
+          {%- if all != blank -%}<a class="tab" href="{{ all.url }}"{% if all.handle == collection.handle %} aria-current="page"{% endif %}>{{ 'collections.all_meals' | t }}</a>{%- endif -%}
+        </nav>
+      {%- endif -%}
+      <div class="coll-search" data-coll-search data-paginated="{% if paginate.pages > 1 %}true{% else %}false{% endif %}" data-suggest-url="{{ routes.predictive_search_url }}.json">
+        <button type="button" class="coll-search__btn" data-coll-search-open aria-expanded="false" aria-controls="CollSearch-{{ section.id }}" aria-label="{{ 'collections.search_open' | t }}">{% render 'icon', name: 'search' %}</button>
+        <div class="coll-search__field" id="CollSearch-{{ section.id }}">
+          <label class="visually-hidden" for="CollSearchInput-{{ section.id }}">{{ 'collections.search_label' | t }}</label>
+          <input type="search" id="CollSearchInput-{{ section.id }}" data-coll-search-input placeholder="{{ 'collections.search_placeholder' | t }}" autocomplete="off" enterkeyhint="search" tabindex="-1">
+          <button type="button" class="coll-search__close" data-coll-search-close aria-label="{{ 'collections.search_close' | t }}" tabindex="-1">{% render 'icon', name: 'close' %}</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <form action="{{ collection.url }}" method="get" data-facets id="Facets-{{ section.id }}" class="facets">
@@ -90,6 +100,14 @@
       {%- endfor -%}
     </div>
   {%- endif -%}
+  <div class="empty coll-search__empty" data-coll-search-empty hidden role="status">
+    <p class="h-3" data-coll-search-empty-text></p>
+    <button type="button" class="btn btn--ghost" data-coll-search-close>{{ 'collections.search_clear' | t }}</button>
+  </div>
+  <div class="coll-search__more" data-coll-search-more hidden>
+    <h2 class="h-3">{{ 'collections.search_more' | t }}</h2>
+    <ul></ul>
+  </div>
   {%- if collection.products.size > 0 -%}
     <div class="meal-grid" data-stagger data-grid>
       {%- for product in collection.products -%}

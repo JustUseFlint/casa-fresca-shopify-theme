@@ -1,0 +1,41 @@
+<section class="section{% if section.settings.dark %} section--dark{% elsif section.settings.sand %} section--sand{% endif %}" aria-labelledby="TC-{{ section.id }}">
+  <div class="page-width">
+    <div class="sec-head">
+      {%- if section.settings.kicker != blank -%}<p class="kicker" data-reveal>{{ section.settings.kicker }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="h-2" id="TC-{{ section.id }}" data-split>{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<div class="lede rte" data-reveal>{{ section.settings.text }}</div>{%- endif -%}
+    </div>
+    <div class="steps steps--{{ section.blocks.size }}" data-stagger>
+      {%- for block in section.blocks -%}
+        <article class="step" data-reveal {{ block.shopify_attributes }}>
+          {%- if block.settings.label != blank -%}<span class="step__when">{{ block.settings.label }}</span>{%- endif -%}
+          <h3 class="h-3">{{ block.settings.title }}</h3>
+          <div class="rte">{{ block.settings.text }}</div>
+          {%- if block.settings.link != blank -%}<a class="link-arrow" href="{{ block.settings.link }}">{{ block.settings.link_label }}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Text cards",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Small heading" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "checkbox", "id": "dark", "label": "Dark background", "default": false },
+    { "type": "checkbox", "id": "sand", "label": "Tinted background", "default": false }
+  ],
+  "blocks": [
+    { "type": "card", "name": "Card", "settings": [
+      { "type": "text", "id": "label", "label": "Small label" },
+      { "type": "text", "id": "title", "label": "Title", "default": "Title" },
+      { "type": "richtext", "id": "text", "label": "Text" },
+      { "type": "url", "id": "link", "label": "Link" },
+      { "type": "text", "id": "link_label", "label": "Link label", "default": "Learn more" }
+    ]}
+  ],
+  "presets": [{ "name": "Text cards", "blocks": [{ "type": "card" }, { "type": "card" }, { "type": "card" }] }]
+}
+{% endschema %}

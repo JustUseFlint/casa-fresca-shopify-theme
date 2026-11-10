@@ -1,0 +1,179 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "kicker": "FAQs",
+        "heading": "Questions, <em>answered</em>",
+        "text": "<p>How ordering, pickup, delivery and the meals themselves work. Still stuck? Call or text and we will help.</p>",
+        "show_phone": true
+      }
+    },
+    "ordering": {
+      "type": "faq",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "q": "When do I need to order by?",
+            "a": "<p>Thursday at 6 PM for meals the following Tuesday. The bar at the top of the site always shows the next cut-off and how long is left.</p>"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "q": "When does the new menu go up?",
+            "a": "<p>Every week. A short menu of new meals and returning favourites goes up at the start of the week.</p>"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "q": "How do I order?",
+            "a": "<p>Add meals from <a href=\"/collections/weekly-meals\">this week’s menu</a>, pick your base where there is a choice, and check out. Pickup and delivery options appear at checkout.</p>"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "q": "Can I add a note to my order?",
+            "a": "<p>Yes. Open your cart and use “Order special instructions”, or call or text <a href=\"tel:+13172942433\">(317) 294-2433</a>.</p>"
+          }
+        },
+        "item_5": {
+          "type": "item",
+          "settings": {
+            "q": "Do you take weeks off?",
+            "a": "<p>Now and then. When we do, the site says so at the top and the menu is paused until the next week.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4",
+        "item_5"
+      ],
+      "settings": {
+        "kicker": "Ordering",
+        "heading": "Placing an order",
+        "dark": false
+      }
+    },
+    "getting": {
+      "type": "faq",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "q": "Where can I pick up?",
+            "a": "<p>At the cooler in Ironsmith’s Gym, 1714 E Main St, Crawfordsville, on Tuesday.</p>"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "q": "Do you deliver?",
+            "a": "<p>Yes, to your door on Tuesday. The delivery options for your address, and any fee, show at checkout.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2"
+      ],
+      "settings": {
+        "kicker": "Pickup and delivery",
+        "heading": "Getting your meals",
+        "dark": true
+      }
+    },
+    "meals": {
+      "type": "faq",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "q": "Are the meals frozen?",
+            "a": "<p>No. Everything is chef-prepared with fresh, never-frozen ingredients.</p>"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "q": "How do I heat a meal?",
+            "a": "<p>Keep meals refrigerated. Microwave for 2 to 3 minutes and enjoy.</p>"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "q": "Where can I see calories and protein?",
+            "a": "<p>Each meal page shows its macros and nutrition label when we have one. You can also try the <a href=\"/pages/macro-calculator\">macro calculator</a> to find your daily targets.</p>"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "q": "I have an allergy. Can I still order?",
+            "a": "<p>Please call or text us before you order at <a href=\"tel:+13172942433\">(317) 294-2433</a> and we will tell you what is in each meal.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4"
+      ],
+      "settings": {
+        "kicker": "The meals",
+        "heading": "Heating, nutrition and allergies",
+        "dark": false
+      }
+    },
+    "catering": {
+      "type": "faq",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "q": "Do you cater events?",
+            "a": "<p>Yes: company dinners, work lunches, rehearsal dinners and weddings. <a href=\"/pages/catering\">Start a catering inquiry</a>.</p>"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "q": "How much does catering cost?",
+            "a": "<p>Every event is different, so we quote each one. Send your date, headcount and what you have in mind.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2"
+      ],
+      "settings": {
+        "kicker": "Catering",
+        "heading": "Feeding a crowd",
+        "dark": false
+      }
+    },
+    "content": {
+      "type": "main-page",
+      "settings": {
+        "hide_title": true
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "ordering",
+    "getting",
+    "meals",
+    "catering",
+    "content"
+  ]
+}

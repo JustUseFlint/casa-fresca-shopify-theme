@@ -2,7 +2,13 @@
   "sections": {
     "main": {
       "type": "main-blog",
-      "settings": {}
+      "settings": {
+        "kicker": "From the kitchen",
+        "blog_1": "news",
+        "blog_1_label": "Blog",
+        "blog_2": "recipes",
+        "blog_2_label": "Recipes"
+      }
     }
   },
   "order": [

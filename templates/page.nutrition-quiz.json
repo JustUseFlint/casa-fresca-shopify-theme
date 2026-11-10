@@ -18,13 +18,14 @@
       }
     },
     "cta": {
-      "type": "rich-text",
+      "type": "featured-meals",
       "settings": {
-        "heading": "Ready to <em>order?</em>",
-        "text": "",
-        "button_label": "See this week's menu",
-        "button_link": "shopify://collections/weekly-meals",
-        "center": true,
+        "collection": "weekly-meals",
+        "limit": 6,
+        "available_only": true,
+        "kicker": "This week",
+        "heading": "Meals that <em>fit your goals</em>",
+        "link_label": "See the full menu",
         "sand": true
       }
     }

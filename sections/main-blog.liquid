@@ -1,7 +1,17 @@
 {%- paginate blog.articles by 9 -%}
 <section class="section" style="padding-top:clamp(40px,7vw,96px)">
   <div class="page-width">
-    <h1 class="h-1" data-split style="margin-bottom:clamp(26px,4vw,48px)">{{ blog.title }}</h1>
+    <div class="blog-head">
+      {%- if section.settings.kicker != blank -%}<p class="kicker" data-reveal>{{ section.settings.kicker }}</p>{%- endif -%}
+      <h1 class="h-1" data-split>{{ blog.title }}</h1>
+      {%- if section.settings.blog_1 != blank and section.settings.blog_2 != blank -%}
+        <nav class="coll-tabs" aria-label="{{ section.settings.kicker | escape }}" data-reveal>
+          {%- for b in (1..2) -%}{%- assign key = 'blog_' | append: b -%}{%- assign bb = section.settings[key] -%}{%- assign lk = key | append: '_label' -%}
+            <a class="tab" href="{{ bb.url }}"{% if bb.handle == blog.handle %} aria-current="page"{% endif %}>{{ section.settings[lk] | default: bb.title }}</a>
+          {%- endfor -%}
+        </nav>
+      {%- endif -%}
+    </div>
     <div class="posts" data-stagger>
       {%- for article in blog.articles -%}
         <a class="post" href="{{ article.url }}" data-reveal>
@@ -17,5 +27,11 @@
 </section>
 {%- endpaginate -%}
 {% schema %}
-{ "name": "Blog posts", "settings": [] }
+{ "name": "Blog posts", "settings": [
+  { "type": "text", "id": "kicker", "label": "Small heading", "default": "From the kitchen" },
+  { "type": "blog", "id": "blog_1", "label": "First tab" },
+  { "type": "text", "id": "blog_1_label", "label": "First tab label", "default": "Blog" },
+  { "type": "blog", "id": "blog_2", "label": "Second tab" },
+  { "type": "text", "id": "blog_2_label", "label": "Second tab label", "default": "Recipes" }
+] }
 {% endschema %}

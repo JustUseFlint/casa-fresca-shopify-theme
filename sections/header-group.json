@@ -2,8 +2,122 @@
   "type": "header",
   "name": "Header group",
   "sections": {
-    "announcement": { "type": "announcement", "settings": { "show": true, "text": "" } },
-    "header": { "type": "header", "settings": { "menu": "main-menu", "show_search": true, "show_account": true } }
+    "announcement": {
+      "type": "announcement",
+      "settings": {
+        "show": true,
+        "text": ""
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "home": {
+          "type": "link",
+          "settings": {
+            "label": "Home",
+            "url": "/"
+          }
+        },
+        "order": {
+          "type": "link",
+          "settings": {
+            "label": "Order Now!",
+            "url": "shopify://collections/weekly-meals"
+          }
+        },
+        "catering": {
+          "type": "link",
+          "settings": {
+            "label": "Catering",
+            "url": "shopify://pages/catering"
+          }
+        },
+        "faqs": {
+          "type": "more",
+          "settings": {
+            "label": "FAQs",
+            "url": "shopify://pages/faqs"
+          }
+        },
+        "how": {
+          "type": "more",
+          "settings": {
+            "label": "How It Works",
+            "url": "shopify://pages/how-it-works"
+          }
+        },
+        "about": {
+          "type": "more",
+          "settings": {
+            "label": "About Us",
+            "url": "shopify://pages/about-us"
+          }
+        },
+        "contact": {
+          "type": "more",
+          "settings": {
+            "label": "Contact",
+            "url": "shopify://pages/contact"
+          }
+        },
+        "locations": {
+          "type": "more",
+          "settings": {
+            "label": "Locations",
+            "url": "shopify://pages/locations"
+          }
+        },
+        "macro": {
+          "type": "more",
+          "settings": {
+            "label": "Macro Calculator",
+            "url": "shopify://pages/macro-calculator"
+          }
+        },
+        "quiz": {
+          "type": "more",
+          "settings": {
+            "label": "Nutrition Quiz",
+            "url": "shopify://pages/nutrition-quiz"
+          }
+        },
+        "blog": {
+          "type": "more",
+          "settings": {
+            "label": "Blog",
+            "url": "shopify://blogs/news"
+          }
+        },
+        "recipes": {
+          "type": "more",
+          "settings": {
+            "label": "Recipes",
+            "url": "shopify://blogs/recipes"
+          }
+        }
+      },
+      "block_order": [
+        "home",
+        "order",
+        "catering",
+        "faqs",
+        "how",
+        "about",
+        "contact",
+        "locations",
+        "macro",
+        "quiz",
+        "blog",
+        "recipes"
+      ],
+      "settings": {
+        "more_label": "More"
+      }
+    }
   },
-  "order": ["announcement", "header"]
+  "order": [
+    "announcement",
+    "header"
+  ]
 }
