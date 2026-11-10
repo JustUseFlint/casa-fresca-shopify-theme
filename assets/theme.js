@@ -160,6 +160,7 @@
       list.innerHTML = c.items.map(lineHTML).join('');
       $$('[data-cart-filled]', cartPage).forEach((el) => { el.hidden = c.item_count === 0; });
       $$('[data-cart-empty]', cartPage).forEach((el) => { el.hidden = c.item_count > 0; });
+      const note = $('[data-cart-note]', cartPage); if (note && document.activeElement !== note) note.value = c.note || '';
     });
   }
 

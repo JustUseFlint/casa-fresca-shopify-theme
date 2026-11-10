@@ -577,3 +577,5 @@ body.drawer-open .cart-bar,body.menu-open .cart-bar{visibility:hidden}
 .coll-count{display:block;color:var(--c-ink-2)}
 @media (max-width:639px){.toolbar__count{display:none}.toolbar__in{min-height:58px}.toolbar .select{margin-left:auto;width:9.5em;padding-left:14px;font-size:14.5px}.toolbar .tab,.toolbar .btn--sm{padding:0 14px;font-size:14.5px}}
 @media (min-width:640px){.coll-count{display:none}}
+
+.facets{display:contents}

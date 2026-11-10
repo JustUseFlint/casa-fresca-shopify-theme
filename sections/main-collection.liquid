@@ -27,8 +27,8 @@
     {%- endif -%}
   </div>
 </div>
-<form class="toolbar" action="{{ collection.url }}" method="get" data-facets id="Facets-{{ section.id }}">
-  <div class="page-width toolbar__in">
+<form action="{{ collection.url }}" method="get" data-facets id="Facets-{{ section.id }}" class="facets">
+  <div class="toolbar"><div class="page-width toolbar__in">
     <span class="toolbar__count" role="status">{{ 'collections.count' | t: count: collection.products_count }}</span>
     {%- for filter in collection.filters -%}
       {%- if filter.param_name == 'filter.v.availability' -%}
@@ -46,7 +46,7 @@
     <select class="select" name="sort_by" id="Sort-{{ section.id }}" data-autosubmit style="max-width:46vw">
       {%- for option in collection.sort_options -%}<option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>{%- endfor -%}
     </select>
-  </div>
+  </div></div>
   {%- if collection.filters != empty -%}
   <div class="sheet" id="Sheet-{{ section.id }}" data-sheet role="dialog" aria-modal="true" aria-label="{{ 'collections.filter' | t }}">
     <div class="sheet__grip"></div>
