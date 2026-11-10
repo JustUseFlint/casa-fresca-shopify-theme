@@ -1,0 +1,33 @@
+{%- comment -%}
+  Picks the best photo for a meal: the custom.card_image metafield if set, otherwise the first product image
+  that isn't a nutrition label or a "photo coming soon" placeholder. Sets nothing visible; renders <img> or a text tile.
+  Params: product, sizes, eager (bool), widths
+{%- endcomment -%}
+{%- liquid
+  assign pick = product.metafields.custom.card_image.value
+  if pick == blank
+    for img in product.images
+      assign s = img.src | downcase
+      if s contains 'nutrition' or s contains 'label' or s contains 'photocomingsoon' or s contains 'coming_soon'
+        continue
+      endif
+      assign pick = img
+      break
+    endfor
+  endif
+  assign load = 'lazy'
+  if eager
+    assign load = 'eager'
+  endif
+-%}
+{%- if pick != blank -%}
+  <img
+    src="{{ pick | image_url: width: 800 }}"
+    srcset="{{ pick | image_url: width: 400 }} 400w, {{ pick | image_url: width: 600 }} 600w, {{ pick | image_url: width: 800 }} 800w, {{ pick | image_url: width: 1100 }} 1100w"
+    sizes="{{ sizes | default: '(min-width: 1100px) 33vw, (min-width: 640px) 50vw, 100vw' }}"
+    width="{{ pick.width }}" height="{{ pick.height }}"
+    alt="{{ pick.alt | default: product.title | escape }}"
+    loading="{{ load }}"{% if eager %} fetchpriority="high"{% endif %}>
+{%- else -%}
+  <span class="meal__placeholder"><span>{{ product.title }}</span></span>
+{%- endif -%}

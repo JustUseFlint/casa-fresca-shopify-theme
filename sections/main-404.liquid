@@ -1,0 +1,14 @@
+<section class="section" style="min-height:60vh;display:grid;align-items:center">
+  <div class="page-width" style="display:grid;gap:22px;justify-items:start">
+    <p class="kicker">{{ 'general.not_found_kicker' | t }}</p>
+    <h1 class="h-display" data-split>{{ 'general.not_found' | t }}</h1>
+    <p class="lede">{{ 'general.not_found_text' | t }}</p>
+    <div class="btn-row">
+      {%- if settings.weekly_collection != blank -%}<a class="btn btn--tomato" href="{{ settings.weekly_collection.url }}">{{ 'general.see_this_week' | t }}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+      <a class="btn btn--ghost" href="{{ routes.root_url }}">{{ 'general.home' | t }}</a>
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "404", "settings": [] }
+{% endschema %}

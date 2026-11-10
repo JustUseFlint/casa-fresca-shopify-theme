@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "kicker": "Order online",
+        "per_page": 24,
+        "show_description": false
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

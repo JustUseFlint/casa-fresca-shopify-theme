@@ -1,0 +1,21 @@
+<section class="section"><div class="page-width"><div class="auth">
+  <h1 class="h-1" data-split>{{ 'customer.login' | t }}</h1>
+  {%- form 'customer_login', class: 'auth' -%}
+    {%- if form.errors -%}<div class="form-msg form-msg--err">{{ form.errors | default_errors }}</div>{%- endif -%}
+    <div class="field"><label for="LEmail">{{ 'contact.email' | t }}</label><input class="input" type="email" name="customer[email]" id="LEmail" autocomplete="email" required></div>
+    {%- if form.password_needed -%}<div class="field"><label for="LPass">{{ 'password.label' | t }}</label><input class="input" type="password" name="customer[password]" id="LPass" autocomplete="current-password" required></div>{%- endif -%}
+    <button class="btn btn--tomato btn--block" type="submit">{{ 'customer.sign_in' | t }}</button>
+    <p><a class="link" href="{{ routes.account_register_url }}">{{ 'customer.create' | t }}</a> &middot; <a class="link" href="#recover">{{ 'customer.forgot' | t }}</a></p>
+  {%- endform -%}
+  <div id="recover">
+  {%- form 'recover_customer_password', class: 'auth' -%}
+    {%- if form.posted_successfully? -%}<p class="form-msg">{{ 'customer.recover_sent' | t }}</p>{%- endif -%}
+    <div class="field"><label for="REmail">{{ 'customer.recover' | t }}</label><input class="input" type="email" name="email" id="REmail" autocomplete="email"></div>
+    <button class="btn btn--ghost" type="submit">{{ 'customer.send_reset' | t }}</button>
+  {%- endform -%}
+  </div>
+  {%- form 'guest_login' -%}<button class="btn btn--ghost btn--block" type="submit">{{ 'customer.guest' | t }}</button>{%- endform -%}
+</div></div></section>
+{% schema %}
+{ "name": "Login", "settings": [] }
+{% endschema %}

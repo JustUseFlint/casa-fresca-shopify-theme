@@ -1,0 +1,157 @@
+{%- liquid
+  assign current = product.selected_or_first_available_variant
+  assign single_option = false
+  if product.has_only_default_variant == false and product.options.size == 1
+    assign single_option = true
+  endif
+  assign label_img = product.metafields.custom.nutrition_label.value
+  assign photos = ''
+  for img in product.images
+    assign s = img.src | downcase
+    if s contains 'nutrition' or s contains 'label'
+      if label_img == blank
+        assign label_img = img
+      endif
+      continue
+    endif
+    if s contains 'photocomingsoon'
+      continue
+    endif
+    assign photos = photos | append: forloop.index0 | append: ','
+  endfor
+  assign photo_idx = photos | split: ','
+-%}
+<section class="pdp" data-product-scope>
+  <div class="page-width">
+    <nav class="crumbs" aria-label="{{ 'general.breadcrumbs' | t }}">
+      <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a><span aria-hidden="true">/</span>
+      {%- if collection -%}<a href="{{ collection.url }}">{{ collection.title }}</a>{%- elsif settings.all_collection != blank -%}<a href="{{ settings.all_collection.url }}">{{ settings.all_collection.title }}</a>{%- endif -%}
+    </nav>
+    <div class="pdp__grid">
+      <div class="gallery{% if photo_idx.size <= 1 %} gallery--single{% endif %}" data-gallery>
+        <div class="gallery__track" tabindex="0" aria-label="{{ 'products.photos' | t }}">
+          {%- for i in photo_idx -%}
+            {%- assign n = i | plus: 0 -%}
+            {%- assign img = product.images[n] -%}
+            <figure class="gallery__item" data-index="{{ forloop.index0 }}"{% if forloop.first %} data-reveal="img"{% endif %}>
+              <img src="{{ img | image_url: width: 1100 }}" srcset="{{ img | image_url: width: 600 }} 600w, {{ img | image_url: width: 900 }} 900w, {{ img | image_url: width: 1300 }} 1300w, {{ img | image_url: width: 1800 }} 1800w" sizes="(min-width: 990px) 55vw, 86vw" width="{{ img.width }}" height="{{ img.height }}" alt="{{ img.alt | default: product.title | escape }}"{% if forloop.first %} fetchpriority="high"{% else %} loading="lazy"{% endif %}>
+            </figure>
+          {%- else -%}
+            <figure class="gallery__item" style="position:relative">{% render 'meal-image', product: product, eager: true %}</figure>
+          {%- endfor -%}
+        </div>
+        {%- if photo_idx.size > 1 -%}<div class="gallery__dots" aria-hidden="true">{%- for i in photo_idx -%}<i{% if forloop.first %} class="is-on"{% endif %}></i>{%- endfor -%}</div>{%- endif -%}
+      </div>
+
+      <div class="pdp__info">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'title' -%}
+              <div {{ block.shopify_attributes }} style="display:grid;gap:12px">
+                {%- if product.available -%}<span class="chip chip--sage" style="justify-self:start">{{ 'products.on_menu' | t }}</span>{%- else -%}<span class="chip" style="justify-self:start;box-shadow:0 0 0 1px var(--c-line)">{{ settings.off_menu_label }}</span>{%- endif -%}
+                <h1 class="pdp__title" data-split>{{ product.title }}</h1>
+              </div>
+            {%- when 'price' -%}
+              <p class="pdp__price" {{ block.shopify_attributes }}>{% render 'meal-price', product: product %}</p>
+            {%- when 'macros' -%}
+              <div {{ block.shopify_attributes }}>{% render 'nutrition', product: product, style: 'grid' %}</div>
+            {%- when 'buy_buttons' -%}
+              <div {{ block.shopify_attributes }} style="display:grid;gap:18px">
+                {%- if product.available -%}
+                <form method="post" action="{{ routes.cart_add_url }}" id="product-form-{{ section.id }}" accept-charset="UTF-8" enctype="multipart/form-data" data-product-form data-open-drawer data-url-sync data-title="{{ product.title | escape }}" style="display:grid;gap:18px">
+                  <input type="hidden" name="form_type" value="product"><input type="hidden" name="utf8" value="✓">
+                  {%- if product.has_only_default_variant -%}
+                    <input type="hidden" name="id" value="{{ current.id }}" data-variant="{{ current.id }}" data-price="{{ current.price }}" data-available="{{ current.available }}">
+                  {%- elsif single_option -%}
+                    <fieldset class="opts">
+                      {%- assign opt_name = product.options.first | downcase -%}
+                      <legend>{{ 'products.choose_option' | t: option: opt_name }}</legend>
+                      <div class="opts__list">
+                        {%- for v in product.variants -%}
+                          <label class="opt">
+                            <input type="radio" name="id" value="{{ v.id }}" data-variant="{{ v.id }}" data-price="{{ v.price }}" data-available="{{ v.available }}"{% if v.id == current.id %} checked{% endif %}{% unless v.available %} disabled{% endunless %}>
+                            <span>{{ v.title }} <em>{{ v.price | money }}</em></span>
+                          </label>
+                        {%- endfor -%}
+                      </div>
+                    </fieldset>
+                  {%- else -%}
+                    <div class="field"><label for="V-{{ section.id }}">{{ 'products.choose' | t }}</label>
+                      <select class="select" name="id" id="V-{{ section.id }}">
+                        {%- for v in product.variants -%}<option value="{{ v.id }}" data-variant="{{ v.id }}" data-price="{{ v.price }}" data-available="{{ v.available }}"{% if v.id == current.id %} selected{% endif %}{% unless v.available %} disabled{% endunless %}>{{ v.title }} &middot; {{ v.price | money }}</option>{%- endfor -%}
+                      </select>
+                    </div>
+                  {%- endif -%}
+                  <div class="pdp__buy">
+                    <div class="stepper stepper--light" role="group" aria-label="{{ 'cart.quantity' | t }}">
+                      <button type="button" data-qty-step="-1" aria-label="{{ 'cart.decrease' | t }}">{% render 'icon', name: 'minus' %}</button>
+                      <input type="number" name="quantity" value="1" min="1" inputmode="numeric" aria-label="{{ 'cart.quantity' | t }}">
+                      <button type="button" data-qty-step="1" aria-label="{{ 'cart.increase' | t }}">{% render 'icon', name: 'plus' %}</button>
+                    </div>
+                    <button type="submit" class="btn btn--tomato add-btn" data-add-btn>
+                      {% render 'icon', name: 'bag' %}
+                      <span class="add-btn__t"><span>{{ 'products.add_to_cart' | t }}</span><span>{{ 'products.added' | t }}</span></span>
+                    </button>
+                  </div>
+                </form>
+                {%- else -%}
+                  <p class="paused-note">{{ 'products.off_menu_long' | t }}</p>
+                  {%- if settings.weekly_collection != blank -%}<a class="btn btn--tomato" href="{{ settings.weekly_collection.url }}">{{ 'general.see_this_week' | t }}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+                {%- endif -%}
+                <p class="pdp__note">{% render 'cutoff', show_ready: true, compact: true %}</p>
+              </div>
+            {%- when 'description' -%}
+              {%- if product.description != blank -%}<div class="rte" {{ block.shopify_attributes }}>{{ product.description }}</div>{%- endif -%}
+            {%- when 'details' -%}
+              {%- liquid
+                assign m = product.metafields.custom
+                assign ingredients = m.ingredients.value
+                assign allergens = m.allergens.value
+                assign reheat = m.reheating.value | default: block.settings.reheat_fallback
+              -%}
+              <div class="acc" {{ block.shopify_attributes }}>
+                {%- if ingredients != blank -%}<details><summary>{{ 'products.ingredients' | t }}<i aria-hidden="true"></i></summary><div class="acc__body">{{ ingredients | newline_to_br }}</div></details>{%- endif -%}
+                <details><summary>{{ 'products.allergens' | t }}<i aria-hidden="true"></i></summary><div class="acc__body">
+                  {%- if allergens != blank -%}{{ allergens | join: ', ' }}{%- else -%}{{ block.settings.allergen_fallback }}{%- endif -%}
+                </div></details>
+                {%- if reheat != blank -%}<details{% if block.settings.open_reheat %} open{% endif %}><summary>{{ 'products.reheating' | t }}<i aria-hidden="true"></i></summary><div class="acc__body">{{ reheat | newline_to_br }}</div></details>{%- endif -%}
+                {%- if label_img != blank -%}
+                  <details><summary>{{ 'products.nutrition_label' | t }}<i aria-hidden="true"></i></summary><div class="acc__body">
+                    {%- if block.settings.label_note != blank -%}<p>{{ block.settings.label_note }}</p>{%- endif -%}
+                    <img class="label-img" src="{{ label_img | image_url: width: 700 }}" width="{{ label_img.width }}" height="{{ label_img.height }}" alt="{{ 'products.nutrition_label_alt' | t: title: product.title | escape }}" loading="lazy">
+                  </div></details>
+                {%- endif -%}
+              </div>
+            {%- when 'text' -%}
+              <div class="rte muted" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+            {%- when '@app' -%}
+              {% render block %}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+<script type="application/ld+json">{{ product | structured_data }}</script>
+{% schema %}
+{
+  "name": "Meal details",
+  "blocks": [
+    { "type": "@app" },
+    { "type": "title", "name": "Title", "limit": 1 },
+    { "type": "price", "name": "Price", "limit": 1 },
+    { "type": "macros", "name": "Macros", "limit": 1, "settings": [
+      { "type": "paragraph", "content": "Reads product metafields custom.calories, custom.protein, custom.carbs and custom.fat. Hidden when they're empty." }
+    ]},
+    { "type": "buy_buttons", "name": "Options and add to cart", "limit": 1 },
+    { "type": "description", "name": "Description", "limit": 1 },
+    { "type": "details", "name": "Ingredients, allergens, reheating", "limit": 1, "settings": [
+      { "type": "textarea", "id": "allergen_fallback", "label": "Allergen text when the meal has none set", "default": "Have an allergy? Call or text us before you order and we'll walk you through what's in this meal." },
+      { "type": "textarea", "id": "reheat_fallback", "label": "Reheating text when the meal has none set", "default": "Keep refrigerated. Microwave for 2–3 minutes and enjoy." },
+      { "type": "checkbox", "id": "open_reheat", "label": "Open reheating by default", "default": false },
+      { "type": "text", "id": "label_note", "label": "Note above the nutrition label", "default": "Per container." }
+    ]},
+    { "type": "text", "name": "Text", "settings": [{ "type": "richtext", "id": "text", "label": "Text" }] }
+  ]
+}
+{% endschema %}

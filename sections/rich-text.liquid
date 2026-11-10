@@ -1,0 +1,21 @@
+<section class="section{% if section.settings.sand %} section--sand{% endif %}">
+  <div class="page-width" style="display:grid;gap:18px;{% if section.settings.center %}justify-items:center;text-align:center{% endif %}">
+    {%- if section.settings.heading != blank -%}<h2 class="h-2" data-split>{{ section.settings.heading }}</h2>{%- endif -%}
+    {%- if section.settings.text != blank -%}<div class="rte lede" data-reveal>{{ section.settings.text }}</div>{%- endif -%}
+    {%- if section.settings.button_label != blank -%}<a class="btn btn--tomato" href="{{ section.settings.button_link }}" data-reveal>{{ section.settings.button_label }}</a>{%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Rich text",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "checkbox", "id": "center", "label": "Center", "default": false },
+    { "type": "checkbox", "id": "sand", "label": "Tinted background", "default": false }
+  ],
+  "presets": [{ "name": "Rich text" }]
+}
+{% endschema %}

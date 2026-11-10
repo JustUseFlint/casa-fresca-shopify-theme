@@ -1,0 +1,131 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "kicker": "Catering",
+        "heading": "Catering, cooked <em>the same way</em>",
+        "text": "<p>Company dinners, work lunches, rehearsal dinners and weddings across central Indiana. Tell us about your event and we will plan the food around it.</p>",
+        "product": "peppercorn-steak-bites",
+        "button_label": "Start an inquiry",
+        "button_link": "#inquiry",
+        "show_phone": true
+      }
+    },
+    "events": {
+      "type": "catering-events",
+      "blocks": {
+        "event_1": {
+          "type": "event",
+          "settings": {
+            "when": "July 2026",
+            "big": "160",
+            "title": "A company dinner",
+            "text": "Chicken and steak fajitas for a local team of 160, cooked and delivered in one evening."
+          }
+        },
+        "event_2": {
+          "type": "event",
+          "settings": {
+            "when": "August 2026",
+            "big": "Westfield",
+            "title": "A rehearsal dinner",
+            "text": "The groom first had our Marry Me chicken at a corporate event and wanted it again, with bacon-and-onion green beans, cheesy garlic bread and salad."
+          }
+        },
+        "event_3": {
+          "type": "event",
+          "settings": {
+            "when": "August 2026",
+            "big": "2 days",
+            "title": "One couple, two events",
+            "text": "A rehearsal dinner on Friday, then a charcuterie table at the wedding on Saturday."
+          }
+        },
+        "event_4": {
+          "type": "event",
+          "settings": {
+            "when": "Ongoing",
+            "big": "Work",
+            "title": "Lunch events",
+            "text": "“We use Casa Fresca for work lunch events and home personal meals. So good!” Justin Riggins, Google review"
+          }
+        }
+      },
+      "block_order": [
+        "event_1",
+        "event_2",
+        "event_3",
+        "event_4"
+      ],
+      "settings": {
+        "kicker": "Recent events",
+        "heading": "From rehearsal dinners to <em>a team of 160</em>"
+      }
+    },
+    "form": {
+      "type": "contact-form",
+      "settings": {
+        "anchor": "inquiry",
+        "kicker": "Plan your event",
+        "heading": "Tell us about <em>your event</em>",
+        "text": "<p>Share the basics and we will reply by email or phone. Nothing is booked until we have talked.</p>",
+        "event_fields": true,
+        "event_types": "Corporate or work lunch, Rehearsal dinner, Wedding, Party or celebration, Something else",
+        "message_label": "What do you have in mind?",
+        "button_label": "Send inquiry",
+        "success": "Thanks! Your inquiry is in. We will get back to you soon.",
+        "sand": true
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "q": "How much does catering cost?",
+            "a": "<p>Every event is different, so we quote each one. Send your date, headcount and what you have in mind, and we will come back with options and a price.</p>"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "q": "How far ahead should I reach out?",
+            "a": "<p>As early as you can, especially for weddings and weekends. Call or text <a href=\"tel:+13172942433\">(317) 294-2433</a> if your date is close.</p>"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "q": "Can you work around allergies or dietary needs?",
+            "a": "<p>Tell us in your message and we will talk it through with you before anything is cooked.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3"
+      ],
+      "settings": {
+        "kicker": "Catering questions",
+        "heading": "Good to know",
+        "dark": false
+      }
+    },
+    "content": {
+      "type": "main-page",
+      "settings": {
+        "hide_title": true
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "events",
+    "form",
+    "faq",
+    "content"
+  ]
+}

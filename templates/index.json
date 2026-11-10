@@ -1,0 +1,228 @@
+{
+  "sections": {
+    "weekly": {
+      "type": "weekly-menu",
+      "settings": {
+        "collection": "weekly-meals",
+        "limit": 12,
+        "kicker": "This week's menu",
+        "heading": "Cooked fresh, <em>ready Tuesday.</em>",
+        "text": "Pick your meals, choose your base and check out in a minute. Heat for two or three minutes and eat.",
+        "show_description": true,
+        "all_link": "shopify://collections/all-meals",
+        "all_label": "See every meal we make"
+      }
+    },
+    "how": {
+      "type": "how-it-works",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "when": "By Thursday, 6 PM",
+            "title": "Pick your meals",
+            "text": "A new menu goes up every week. Choose your meals and your base, then check out online.",
+            "icon": "tap"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "when": "Monday & Tuesday",
+            "title": "We cook it fresh",
+            "text": "Chef-prepared with fresh, never-frozen ingredients, one meal to a container.",
+            "icon": "pan"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "when": "Tuesday",
+            "title": "Pickup or delivery",
+            "text": "Grab your order from the cooler at Ironsmith's Gym, or have it brought to your door.",
+            "icon": "box"
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "when": "Any night",
+            "title": "Heat and eat",
+            "text": "Two to three minutes in the microwave for a big, high-protein meal.",
+            "icon": "microwave"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4"
+      ],
+      "settings": {
+        "kicker": "How a week works",
+        "heading": "Order by Thursday. <em>Eat well</em> all week.",
+        "text": "",
+        "dark": true,
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "pickup": {
+      "type": "pickup-delivery",
+      "blocks": {
+        "place_1": {
+          "type": "place",
+          "settings": {
+            "icon": "pin",
+            "title": "Pickup at Ironsmith's Gym",
+            "address": "1714 E Main St, Crawfordsville, IN",
+            "text": "<p>Our pickup cooler. Collect your order there on Tuesday.</p>",
+            "link": "https://www.google.com/maps/search/?api=1&query=Ironsmith%27s+Gym+1714+E+Main+St+Crawfordsville+IN",
+            "link_label": "Get directions"
+          }
+        },
+        "place_2": {
+          "type": "place",
+          "settings": {
+            "icon": "truck",
+            "title": "Delivered to your door",
+            "address": "",
+            "text": "<p>Local delivery on Tuesday. The delivery options for your address, and any fee, show at checkout.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        }
+      },
+      "block_order": [
+        "place_1",
+        "place_2"
+      ],
+      "settings": {
+        "kicker": "Pickup or delivery",
+        "heading": "Two easy ways to <em>get your meals</em>",
+        "sand": false
+      }
+    },
+    "reviews": {
+      "type": "reviews",
+      "blocks": {
+        "quote_1": {
+          "type": "quote",
+          "settings": {
+            "quote": "Ordering is simple and straightforward, and they have both pickup or delivery options. The food is always fresh and as advertised.",
+            "author": "Adam Welcher",
+            "source": "Google review"
+          }
+        },
+        "quote_2": {
+          "type": "quote",
+          "settings": {
+            "quote": "Each meal is filling with a good serving size and has great flavor. Definitely recommend giving them a try!",
+            "author": "Tamara Peck",
+            "source": "Google review"
+          }
+        },
+        "quote_3": {
+          "type": "quote",
+          "settings": {
+            "quote": "We use Casa Fresca for work lunch events and home personal meals. So good!",
+            "author": "Justin Riggins",
+            "source": "Google review"
+          }
+        },
+        "quote_4": {
+          "type": "quote",
+          "settings": {
+            "quote": "Casa Fresca has completely simplified mealtime for our family!",
+            "author": "Brittani Cohee",
+            "source": "Google review"
+          }
+        },
+        "quote_5": {
+          "type": "quote",
+          "settings": {
+            "quote": "It makes meal prep for my diet soooooo much easier. Thank you!",
+            "author": "Adriana Smith",
+            "source": "Google review"
+          }
+        },
+        "quote_6": {
+          "type": "quote",
+          "settings": {
+            "quote": "The meals taste amazing and are healthy. They are great if you are on the go or just don’t want to cook.",
+            "author": "Ethan Chester",
+            "source": "Google review"
+          }
+        }
+      },
+      "block_order": [
+        "quote_1",
+        "quote_2",
+        "quote_3",
+        "quote_4",
+        "quote_5",
+        "quote_6"
+      ],
+      "settings": {
+        "kicker": "From our regulars",
+        "heading": "Fresh, filling and <em>as advertised</em>",
+        "rating": "5.0 on Google"
+      }
+    },
+    "catering": {
+      "type": "image-feature",
+      "blocks": {
+        "fact_1": {
+          "type": "fact",
+          "settings": {
+            "big": "160",
+            "small": "guests at one fajita dinner"
+          }
+        },
+        "fact_2": {
+          "type": "fact",
+          "settings": {
+            "big": "2 days",
+            "small": "rehearsal dinner, then the wedding"
+          }
+        }
+      },
+      "block_order": [
+        "fact_1",
+        "fact_2"
+      ],
+      "settings": {
+        "product": "marry-me-chicken-over-linguine-with-green-beans",
+        "kicker": "Catering",
+        "heading": "Feeding a crowd? <em>We cook for that too.</em>",
+        "text": "<p>Corporate dinners, work lunches, rehearsal dinners and weddings across central Indiana, cooked by the same kitchen that makes your weekly meals.</p>",
+        "dark": true,
+        "flip": false,
+        "button_label": "Plan your event",
+        "button_link": "shopify://pages/catering",
+        "button2_label": "",
+        "button2_link": ""
+      }
+    },
+    "rotation": {
+      "type": "rotation",
+      "settings": {
+        "collection": "all-meals",
+        "limit": 18,
+        "kicker": "The rotation",
+        "heading": "Eighty-plus meals, <em>and counting</em>",
+        "text": "Favourites come back around. Browse everything we have cooked so far.",
+        "button_label": "Browse all meals"
+      }
+    }
+  },
+  "order": [
+    "weekly",
+    "how",
+    "pickup",
+    "reviews",
+    "catering",
+    "rotation"
+  ]
+}

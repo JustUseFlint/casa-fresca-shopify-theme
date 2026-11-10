@@ -1,0 +1,9 @@
+{%- comment -%} Brand lockup. Uses the uploaded logo if there is one, otherwise the house mark + "casa FRESCA". {%- endcomment -%}
+<a class="wordmark" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+  {%- if settings.logo != blank -%}
+    {{ settings.logo | image_url: width: 360 | image_tag: class: 'header__logo-img', alt: shop.name, loading: 'eager' }}
+  {%- else -%}
+    <img src="{{ 'logo-mark.png' | asset_url }}" alt="" width="46" height="42" loading="eager">
+    <span class="wordmark__t" aria-hidden="true"><i>casa</i><b>FRESCA</b></span>
+  {%- endif -%}
+</a>

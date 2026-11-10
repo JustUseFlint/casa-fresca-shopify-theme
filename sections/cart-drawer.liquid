@@ -1,0 +1,68 @@
+{%- liquid
+  assign coll = section.settings.upsell_collection
+  if coll == blank
+    assign coll = settings.weekly_collection
+  endif
+-%}
+<aside class="drawer" id="CartDrawer" data-drawer role="dialog" aria-modal="true" aria-labelledby="CartDrawerTitle" aria-hidden="true">
+  <div class="drawer__grip" aria-hidden="true"></div>
+  <div class="drawer__head">
+    <h2 id="CartDrawerTitle">{{ 'cart.your_week' | t }} <span>(<span data-cart-count>{{ cart.item_count }}</span>)</span></h2>
+    <button type="button" class="icon-btn" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
+  </div>
+  {%- if section.settings.show_cutoff -%}<div class="drawer__cut">{% render 'cutoff', show_ready: true, compact: true %}</div>{%- endif -%}
+  <div class="drawer__body">
+    <ul data-drawer-lines{% if cart.item_count == 0 %} hidden{% endif %}></ul>
+    <div class="drawer__empty" data-drawer-empty{% if cart.item_count > 0 %} hidden{% endif %}>
+      <p class="h-3">{{ 'cart.empty' | t }}</p>
+      <p class="muted">{{ 'cart.empty_text' | t }}</p>
+    </div>
+    {%- if section.settings.show_upsell and coll.products.size > 0 -%}
+      <div class="upsell" data-upsell>
+        <h3>{{ section.settings.upsell_heading }}</h3>
+        <div class="upsell__row">
+          {%- for p in coll.products limit: 12 -%}
+            {%- if p.available == false -%}{%- continue -%}{%- endif -%}
+            {%- assign v = p.selected_or_first_available_variant -%}
+            <div class="mini" data-upsell-item data-variant-id="{{ v.id }}">
+              <a href="{{ p.url }}" tabindex="-1" style="position:relative;display:block;border-radius:12px;overflow:hidden;aspect-ratio:1;background:var(--c-night)">{% render 'meal-image', product: p, sizes: '150px' %}</a>
+              <a class="mini__t" href="{{ p.url }}" style="text-decoration:none">{{ p.title }}</a>
+              <div class="mini__b"><span>{{ v.price | money }}</span>
+                <button type="button" class="mini__add" data-quick-add="{{ v.id }}" data-title="{{ p.title | escape }}" aria-label="{{ 'products.add_named' | t: title: p.title | escape }}">{% render 'icon', name: 'plus' %}</button>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+    {%- for block in section.blocks -%}<div {{ block.shopify_attributes }} style="margin-top:16px">{% render block %}</div>{%- endfor -%}
+  </div>
+  <form class="drawer__foot" action="{{ routes.cart_url }}" method="post" data-drawer-foot{% if cart.item_count == 0 %} hidden{% endif %}>
+    {%- if section.settings.show_note -%}
+      <details class="cart-note"{% if cart.note != blank %} open{% endif %}>
+        <summary>{% render 'icon', name: 'note' %}{{ 'cart.note' | t }}</summary>
+        <label class="visually-hidden" for="DrawerNote">{{ 'cart.note' | t }}</label>
+        <textarea class="input" id="DrawerNote" name="note" data-cart-note placeholder="{{ 'cart.note_placeholder' | t }}">{{ cart.note }}</textarea>
+      </details>
+    {%- endif -%}
+    <div class="drawer__total"><span>{{ 'cart.subtotal' | t }}<small>{{ 'cart.taxes' | t }}</small></span><span data-cart-total>{{ cart.total_price | money }}</span></div>
+    <div class="drawer__actions">
+      <a class="btn btn--ghost" href="{{ routes.cart_url }}">{{ 'cart.view' | t }}</a>
+      <button type="submit" name="checkout" class="btn btn--tomato" data-checkout>{{ 'cart.checkout' | t }}{% render 'icon', name: 'arrow' %}</button>
+    </div>
+  </form>
+</aside>
+{% schema %}
+{
+  "name": "Cart drawer",
+  "class": "section-cart-drawer",
+  "settings": [
+    { "type": "checkbox", "id": "show_cutoff", "label": "Show the order cut-off", "default": true },
+    { "type": "checkbox", "id": "show_note", "label": "Show order special instructions", "default": true },
+    { "type": "checkbox", "id": "show_upsell", "label": "Suggest more meals from this week", "default": true },
+    { "type": "text", "id": "upsell_heading", "label": "Suggestion heading", "default": "Add to your week" },
+    { "type": "collection", "id": "upsell_collection", "label": "Suggest from", "info": "Defaults to the weekly menu set in Theme settings." }
+  ],
+  "blocks": [{ "type": "@app" }]
+}
+{% endschema %}

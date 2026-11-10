@@ -1,0 +1,12 @@
+<section class="section"><div class="page-width"><div class="auth">
+  <h1 class="h-1" data-split>{{ 'customer.activate' | t }}</h1>
+  {%- form 'activate_customer_password', class: 'auth' -%}
+    {%- if form.errors -%}<div class="form-msg form-msg--err">{{ form.errors | default_errors }}</div>{%- endif -%}
+    <div class="field"><label for="AP1">{{ 'password.label' | t }}</label><input class="input" type="password" name="customer[password]" id="AP1" autocomplete="new-password"></div>
+    <div class="field"><label for="AP2">{{ 'customer.confirm' | t }}</label><input class="input" type="password" name="customer[password_confirmation]" id="AP2" autocomplete="new-password"></div>
+    <button class="btn btn--tomato btn--block" type="submit">{{ 'customer.activate' | t }}</button>
+  {%- endform -%}
+</div></div></section>
+{% schema %}
+{ "name": "Activate account", "settings": [] }
+{% endschema %}

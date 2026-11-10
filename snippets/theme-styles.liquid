@@ -1,0 +1,31 @@
+{%- comment -%} Fonts are self-hosted in assets. Colours come from Theme settings. {%- endcomment -%}
+{% style %}
+  @font-face{font-family:'Bricolage Grotesque';src:url('{{ 'bricolage.woff2' | asset_url }}') format('woff2');font-weight:300 800;font-stretch:75% 100%;font-style:normal;font-display:swap}
+  @font-face{font-family:'Instrument Serif';src:url('{{ 'instrument-serif.woff2' | asset_url }}') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:'Instrument Serif';src:url('{{ 'instrument-serif-italic.woff2' | asset_url }}') format('woff2');font-weight:400;font-style:italic;font-display:swap}
+  :root{
+    --c-paper:{{ settings.color_paper }};
+    --c-sand:{{ settings.color_sand }};
+    --c-card:{{ settings.color_card }};
+    --c-ink:{{ settings.color_ink }};
+    --c-ink-2:{{ settings.color_ink | color_mix: settings.color_paper, 72 }};
+    --c-line:{{ settings.color_ink | color_modify: 'alpha', 0.12 }};
+    --c-line-2:{{ settings.color_ink | color_modify: 'alpha', 0.24 }};
+    --c-tomato:{{ settings.color_tomato }};
+    --c-tomato-2:{{ settings.color_tomato | color_darken: 8 }};
+    --c-gold:{{ settings.color_gold }};
+    --c-sage:{{ settings.color_sage }};
+    --c-sage-2:{{ settings.color_sage | color_mix: '#ffffff', 45 }};
+    --c-olive:{{ settings.color_olive }};
+    --c-roof:{{ settings.color_roof }};
+    --c-night:{{ settings.color_night }};
+    --f-sans:'Bricolage Grotesque',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+    --f-serif:'Instrument Serif',Georgia,serif;
+    --ease:cubic-bezier(.16,1,.3,1);
+    --radius:14px;--radius-lg:22px;--radius-xl:30px;
+    --gutter:20px;--gutter-d:20px;
+    --sec-y:clamp(64px,9vw,120px);
+  }
+  @media (min-width:750px){:root{--gutter:36px;--gutter-d:28px}}
+  @media (min-width:1200px){:root{--gutter:56px}}
+{% endstyle %}

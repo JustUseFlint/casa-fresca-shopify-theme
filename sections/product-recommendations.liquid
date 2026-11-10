@@ -1,0 +1,39 @@
+{%- comment -%}
+  Shows this week's other meals under every meal page. This works better than Shopify's generic
+  recommendations here, because most of the catalogue is sold out between rotations.
+{%- endcomment -%}
+{%- liquid
+  assign coll = section.settings.collection
+  if coll == blank
+    assign coll = settings.weekly_collection
+  endif
+-%}
+{%- if coll.products.size > 0 -%}
+<section class="section" style="padding-top:0" aria-labelledby="RecH-{{ section.id }}">
+  <div class="page-width">
+    <div class="sec-head sec-head--row">
+      <h2 class="h-2" id="RecH-{{ section.id }}" data-split>{{ section.settings.heading }}</h2>
+      <a class="link-arrow" href="{{ coll.url }}">{{ 'general.see_this_week' | t }}{% render 'icon', name: 'arrow' %}</a>
+    </div>
+    <div class="meal-grid" data-stagger>
+      {%- assign shown = 0 -%}
+      {%- for p in coll.products -%}
+        {%- if p.id == product.id or p.available == false -%}{%- continue -%}{%- endif -%}
+        {%- if shown >= section.settings.limit -%}{%- break -%}{%- endif -%}
+        {% render 'meal-card', product: p, show_description: false, sid: section.id %}
+        {%- assign shown = shown | plus: 1 -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "More from this week",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Defaults to the weekly menu set in Theme settings." },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Round out <em>your week</em>" },
+    { "type": "range", "id": "limit", "label": "Meals", "min": 2, "max": 6, "step": 1, "default": 3 }
+  ]
+}
+{% endschema %}

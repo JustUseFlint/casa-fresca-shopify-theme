@@ -1,0 +1,40 @@
+<section class="section{% if section.settings.sand %} section--sand{% endif %}" aria-labelledby="PickH-{{ section.id }}">
+  <div class="page-width">
+    <div class="sec-head">
+      {%- if section.settings.kicker != blank -%}<p class="kicker" data-reveal>{{ section.settings.kicker }}</p>{%- endif -%}
+      <h2 class="h-2" id="PickH-{{ section.id }}" data-split>{{ section.settings.heading }}</h2>
+    </div>
+    <div class="places" data-stagger>
+      {%- for block in section.blocks -%}
+        <article class="place" data-reveal {{ block.shopify_attributes }}>
+          <span class="place__ico">{% render 'icon', name: block.settings.icon %}</span>
+          <h3 class="h-3">{{ block.settings.title }}</h3>
+          {%- if block.settings.address != blank -%}<address>{{ block.settings.address }}</address>{%- endif -%}
+          {%- if block.settings.text != blank -%}<div class="rte">{{ block.settings.text }}</div>{%- endif -%}
+          {%- if block.settings.link != blank -%}<a class="link-arrow" href="{{ block.settings.link }}"{% if block.settings.link contains 'http' %} target="_blank" rel="noopener"{% endif %}>{{ block.settings.link_label }}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Pickup and delivery",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Small heading", "default": "Pickup or delivery" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Two easy ways to <em>get your meals</em>" },
+    { "type": "checkbox", "id": "sand", "label": "Tinted background", "default": true }
+  ],
+  "blocks": [
+    { "type": "place", "name": "Option", "settings": [
+      { "type": "select", "id": "icon", "label": "Icon", "default": "pin", "options": [{ "value": "pin", "label": "Pin" }, { "value": "truck", "label": "Truck" }, { "value": "clock", "label": "Clock" }] },
+      { "type": "text", "id": "title", "label": "Title", "default": "Pickup" },
+      { "type": "text", "id": "address", "label": "Address" },
+      { "type": "richtext", "id": "text", "label": "Text" },
+      { "type": "url", "id": "link", "label": "Link" },
+      { "type": "text", "id": "link_label", "label": "Link label", "default": "Get directions" }
+    ]}
+  ],
+  "presets": [{ "name": "Pickup and delivery", "blocks": [{ "type": "place" }, { "type": "place" }] }]
+}
+{% endschema %}

@@ -1,0 +1,34 @@
+{
+  "current": {
+    "weekly_collection": "weekly-meals",
+    "all_collection": "all-meals",
+    "cutoff_day": "4",
+    "cutoff_time": "18:00",
+    "ready_day": "2",
+    "timezone": "America/Indiana/Indianapolis",
+    "cutoff_fallback": "Thursday, 6 PM",
+    "ready_fallback": "Tuesday",
+    "orders_paused": false,
+    "paused_message": "We're taking this week off. The next menu goes up soon.",
+    "off_menu_label": "Off the menu this week",
+    "open_drawer_on_add": true,
+    "show_cart_bar": true,
+    "color_paper": "#FBF4E6",
+    "color_sand": "#F3E8D2",
+    "color_card": "#FFFDF8",
+    "color_ink": "#2B1B18",
+    "color_tomato": "#E5492F",
+    "color_gold": "#F1B435",
+    "color_sage": "#8DA262",
+    "color_olive": "#283219",
+    "color_roof": "#A35F35",
+    "color_night": "#0E0F0B",
+    "contact_phone": "(317) 294-2433",
+    "contact_email": "casafrescameals@gmail.com",
+    "contact_area": "Crawfordsville, Indiana",
+    "social_facebook": "https://www.facebook.com/287589844441997"
+  },
+  "presets": {
+    "Default": {}
+  }
+}

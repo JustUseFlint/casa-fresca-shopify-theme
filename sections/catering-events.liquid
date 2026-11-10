@@ -1,0 +1,36 @@
+<section class="section" aria-labelledby="EvH-{{ section.id }}">
+  <div class="page-width">
+    <div class="sec-head">
+      {%- if section.settings.kicker != blank -%}<p class="kicker" data-reveal>{{ section.settings.kicker }}</p>{%- endif -%}
+      <h2 class="h-2" id="EvH-{{ section.id }}" data-split>{{ section.settings.heading }}</h2>
+    </div>
+    <div class="events" data-stagger>
+      {%- for block in section.blocks -%}
+        <article class="event" data-reveal {{ block.shopify_attributes }}>
+          <span class="event__when">{{ block.settings.when }}</span>
+          <p class="event__big">{{ block.settings.big }}</p>
+          <h3 class="h-3">{{ block.settings.title }}</h3>
+          <p class="muted">{{ block.settings.text }}</p>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Catering events",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Small heading", "default": "Recent events" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "From rehearsal dinners to <em>a team of 160</em>" }
+  ],
+  "blocks": [
+    { "type": "event", "name": "Event", "settings": [
+      { "type": "text", "id": "when", "label": "When" },
+      { "type": "text", "id": "big", "label": "Big text" },
+      { "type": "text", "id": "title", "label": "Title" },
+      { "type": "textarea", "id": "text", "label": "Text" }
+    ]}
+  ],
+  "presets": [{ "name": "Catering events", "blocks": [{ "type": "event" }, { "type": "event" }] }]
+}
+{% endschema %}

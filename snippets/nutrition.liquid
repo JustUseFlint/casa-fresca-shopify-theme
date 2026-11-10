@@ -1,0 +1,31 @@
+{%- comment -%}
+  Reads macros from product metafields (custom.calories / protein / carbs / fat).
+  Outputs nothing when they're missing. Usage: {% render 'nutrition', product: product, style: 'inline' %}
+{%- endcomment -%}
+{%- liquid
+  assign m = product.metafields.custom
+  assign cal = m.calories.value
+  assign pro = m.protein.value
+  assign carb = m.carbs.value
+  assign fat = m.fat.value
+-%}
+{%- if style == 'inline' -%}
+  {%- if cal != blank or pro != blank -%}
+    <p class="meal__macros">
+      {%- if pro != blank -%}<span><b>{{ pro }}g</b> {{ 'products.protein' | t | downcase }}</span>{%- endif -%}
+      {%- if cal != blank -%}<span><b>{{ cal }}</b> {{ 'products.cal' | t }}</span>{%- endif -%}
+      {%- if carb != blank -%}<span><b>{{ carb }}g</b> {{ 'products.carbs' | t | downcase }}</span>{%- endif -%}
+    </p>
+  {%- endif -%}
+{%- elsif style == 'badge' -%}
+  {%- if pro != blank -%}<span class="chip">{{ pro }}g {{ 'products.protein' | t | downcase }}</span>{%- endif -%}
+{%- else -%}
+  {%- if cal != blank or pro != blank -%}
+    <div class="macros macros--hero" role="list" aria-label="{{ 'products.nutrition' | t }}">
+      <div role="listitem"><b>{{ cal | default: '–' }}</b><span>{{ 'products.calories' | t }}</span></div>
+      <div role="listitem"><b>{% if pro != blank %}{{ pro }}g{% else %}–{% endif %}</b><span>{{ 'products.protein' | t }}</span></div>
+      <div role="listitem"><b>{% if carb != blank %}{{ carb }}g{% else %}–{% endif %}</b><span>{{ 'products.carbs' | t }}</span></div>
+      <div role="listitem"><b>{% if fat != blank %}{{ fat }}g{% else %}–{% endif %}</b><span>{{ 'products.fat' | t }}</span></div>
+    </div>
+  {%- endif -%}
+{%- endif -%}

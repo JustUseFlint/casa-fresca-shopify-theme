@@ -1,0 +1,18 @@
+{%- if section.settings.show -%}
+<div class="announce">
+  <div class="announce__in">
+    {% render 'cutoff', show_ready: true %}
+    {%- if section.settings.text != blank -%}<span class="announce__extra">{{ section.settings.text }}</span>{%- endif -%}
+  </div>
+</div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Order cut-off bar",
+  "class": "section-announce",
+  "settings": [
+    { "type": "checkbox", "id": "show", "label": "Show the bar", "default": true },
+    { "type": "inline_richtext", "id": "text", "label": "Extra text", "info": "Optional. The cut-off day and time come from Theme settings > Ordering." }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,5 @@
+{%- liquid
+  assign v = product.selected_or_first_available_variant
+-%}
+{%- if product.price_varies and show_from -%}<small>{{ 'products.from' | t }}</small>{%- endif -%}
+<span data-price-el>{% if v.price > 0 %}{{ v.price | money }}{% endif %}</span>

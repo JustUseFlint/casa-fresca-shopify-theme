@@ -1,0 +1,73 @@
+<header class="site-header" data-header>
+  <div class="page-width header__in">
+    {% render 'wordmark' %}
+    <nav aria-label="{{ 'general.primary_nav' | t }}">
+      <ul class="header__nav">
+        {%- for link in section.settings.menu.links -%}
+          <li>
+            {%- if link.links != blank -%}
+              <details data-hover-menu>
+                <summary>{{ link.title }}{% render 'icon', name: 'chevron' %}</summary>
+                <ul class="header__sub">
+                  {%- for child in link.links -%}<li><a href="{{ child.url }}"{% if child.current %} aria-current="page"{% endif %}>{{ child.title }}</a></li>{%- endfor -%}
+                </ul>
+              </details>
+            {%- else -%}
+              <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+    <div class="header__actions">
+      {%- if section.settings.show_search -%}
+        <a class="icon-btn header__search" href="{{ routes.search_url }}" aria-label="{{ 'general.search' | t }}">{% render 'icon', name: 'search' %}</a>
+      {%- endif -%}
+      {%- if shop.customer_accounts_enabled and section.settings.show_account -%}
+        <a class="icon-btn header__account" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" aria-label="{{ 'customer.account' | t }}">{% render 'icon', name: 'user' %}</a>
+      {%- endif -%}
+      <a class="cart-btn" href="{{ routes.cart_url }}" data-cart-open aria-haspopup="dialog" aria-controls="CartDrawer" aria-expanded="false">
+        {% render 'icon', name: 'bag' %}
+        <span class="visually-hidden">{{ 'cart.title' | t }},</span>
+        <span class="cart-btn__total" data-cart-total>{{ cart.total_price | money }}</span>
+        <span class="cart-btn__count" data-cart-count aria-label="{{ 'cart.count_label' | t }}">{{ cart.item_count }}</span>
+      </a>
+      <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="MobileMenu" aria-label="{{ 'general.menu' | t }}"><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+<div class="mobile-menu" id="MobileMenu" data-mobile-menu aria-hidden="true">
+  <ul class="mobile-menu__links">
+    {%- for link in section.settings.menu.links -%}
+      <li class="mm-item" style="--i: {{ forloop.index0 }}">
+        {%- if link.links != blank -%}
+          <details>
+            <summary>{{ link.title }}{% render 'icon', name: 'plus' %}</summary>
+            <ul>{%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title }}</a></li>{%- endfor -%}</ul>
+          </details>
+        {%- else -%}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+  <div class="mobile-menu__foot mm-item" style="--i: {{ section.settings.menu.links.size }}">
+    {% render 'cutoff' %}
+    {%- if settings.contact_phone != blank -%}<a href="tel:{{ settings.contact_phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}">{{ settings.contact_phone }}</a>{%- endif -%}
+    <div class="btn-row">
+      <a class="btn btn--tomato" href="{{ settings.weekly_collection.url | default: routes.all_products_collection_url }}">{% render 'icon', name: 'bag' %}{{ 'general.order_this_week' | t }}</a>
+      {%- if shop.customer_accounts_enabled -%}<a class="btn btn--ghost" href="{{ routes.account_url }}">{{ 'customer.account' | t }}</a>{%- endif -%}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "show_search", "label": "Show search", "default": true },
+    { "type": "checkbox", "id": "show_account", "label": "Show account icon", "default": true }
+  ]
+}
+{% endschema %}

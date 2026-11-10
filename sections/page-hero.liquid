@@ -1,0 +1,46 @@
+<section class="page-hero" aria-labelledby="PH-{{ section.id }}">
+  <div class="page-width page-hero__grid{% if section.settings.image != blank or section.settings.product != blank %} page-hero__grid--img{% endif %}">
+    <div style="display:grid;gap:20px;justify-items:start">
+      {%- if section.settings.kicker != blank -%}<p class="kicker" data-reveal>{{ section.settings.kicker }}</p>{%- endif -%}
+      <h1 class="h-1" id="PH-{{ section.id }}" data-split>{{ section.settings.heading | default: page.title }}</h1>
+      {%- if section.settings.text != blank -%}<div class="lede rte" data-reveal>{{ section.settings.text }}</div>{%- endif -%}
+      <div class="btn-row" data-reveal>
+        {%- if section.settings.button_label != blank -%}<a class="btn btn--tomato" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+        {%- if section.settings.show_phone and settings.contact_phone != blank -%}<a class="btn btn--ghost" href="tel:{{ settings.contact_phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}">{% render 'icon', name: 'phone' %}{{ settings.contact_phone }}</a>{%- endif -%}
+      </div>
+    </div>
+    {%- liquid
+      assign img = section.settings.image
+      if img == blank and section.settings.product != blank
+        for i in section.settings.product.images
+          assign s = i.src | downcase
+          unless s contains 'nutrition' or s contains 'label' or s contains 'gps_generated'
+            assign img = i
+            break
+          endunless
+        endfor
+      endif
+    -%}
+    {%- if img != blank -%}
+      <div class="page-hero__img" data-reveal="img">
+        <img src="{{ img | image_url: width: 1200 }}" srcset="{{ img | image_url: width: 600 }} 600w, {{ img | image_url: width: 1000 }} 1000w, {{ img | image_url: width: 1400 }} 1400w" sizes="(min-width: 990px) 48vw, 100vw" width="{{ img.width }}" height="{{ img.height }}" alt="{{ img.alt | escape }}" fetchpriority="high">
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Page heading",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Small heading" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Leave empty to use the page title." },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "product", "id": "product", "label": "Or use a meal's photo" },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "checkbox", "id": "show_phone", "label": "Show phone button", "default": false }
+  ],
+  "presets": [{ "name": "Page heading" }]
+}
+{% endschema %}

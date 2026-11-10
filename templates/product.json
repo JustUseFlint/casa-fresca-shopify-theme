@@ -1,0 +1,53 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title"
+        },
+        "price": {
+          "type": "price"
+        },
+        "macros": {
+          "type": "macros"
+        },
+        "buy": {
+          "type": "buy_buttons"
+        },
+        "description": {
+          "type": "description"
+        },
+        "details": {
+          "type": "details",
+          "settings": {
+            "allergen_fallback": "Have an allergy? Call or text us at (317) 294-2433 before you order and we'll tell you what's in this meal.",
+            "reheat_fallback": "Keep refrigerated. Microwave for 2–3 minutes and enjoy.",
+            "open_reheat": false,
+            "label_note": "Per container."
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "macros",
+        "buy",
+        "description",
+        "details"
+      ],
+      "settings": {}
+    },
+    "more": {
+      "type": "product-recommendations",
+      "settings": {
+        "heading": "Round out <em>your week</em>",
+        "limit": 3
+      }
+    }
+  },
+  "order": [
+    "main",
+    "more"
+  ]
+}

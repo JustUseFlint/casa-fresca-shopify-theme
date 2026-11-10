@@ -1,0 +1,12 @@
+{%- comment -%} Live order cut-off line. JS fills in dates from Theme settings > Ordering. Params: show_ready, compact {%- endcomment -%}
+{%- if settings.orders_paused -%}
+  <span class="cutoff cutoff--closed"><span class="cutoff__dot"></span><span>{{ settings.paused_message }}</span></span>
+{%- else -%}
+  <span class="cutoff">
+    <span class="cutoff__dot"></span>
+    <span>{{ 'ordering.order_by' | t }} <strong data-cutoff-date>{{ settings.cutoff_fallback }}</strong>
+      {%- if show_ready %} {{ 'ordering.for' | t }} <strong data-ready-date>{{ settings.ready_fallback }}</strong>{% endif -%}
+      {%- unless compact %} <span class="cutoff__left">&middot; <span data-cutoff-left></span></span>{% endunless -%}
+    </span>
+  </span>
+{%- endif -%}

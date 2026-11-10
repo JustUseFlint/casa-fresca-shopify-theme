@@ -1,0 +1,56 @@
+{%- comment -%} Shopify contact form. Every contact[...] field is emailed to the store's sender email. {%- endcomment -%}
+<section class="section{% if section.settings.sand %} section--sand{% endif %}" id="{{ section.settings.anchor | default: 'inquiry' }}" aria-labelledby="CF-{{ section.id }}">
+  <div class="page-width contact-split">
+    <div style="display:grid;gap:22px;align-content:start">
+      {%- if section.settings.kicker != blank -%}<p class="kicker" data-reveal>{{ section.settings.kicker }}</p>{%- endif -%}
+      <h2 class="h-2" id="CF-{{ section.id }}" data-split>{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<div class="lede rte" data-reveal>{{ section.settings.text }}</div>{%- endif -%}
+      <div class="contact-list" data-reveal>
+        {%- if settings.contact_phone != blank -%}<div><small>{{ 'contact.call_or_text' | t }}</small><a href="tel:{{ settings.contact_phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}">{{ settings.contact_phone }}</a></div>{%- endif -%}
+        {%- if settings.contact_email != blank -%}<div><small>{{ 'contact.email' | t }}</small><a href="mailto:{{ settings.contact_email }}" style="font-size:clamp(18px,2vw,22px)">{{ settings.contact_email }}</a></div>{%- endif -%}
+      </div>
+    </div>
+    <div class="form-card" data-reveal>
+      {%- form 'contact', id: section.id, class: 'form-grid' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="form-msg full" role="status">{{ section.settings.success }}</p>
+        {%- elsif form.errors -%}
+          <div class="form-msg form-msg--err full" role="alert">{{ form.errors | default_errors }}</div>
+        {%- endif -%}
+        <div class="field"><label for="n-{{ section.id }}">{{ 'contact.name' | t }}</label><input class="input" id="n-{{ section.id }}" name="contact[name]" autocomplete="name" required value="{{ form.name }}"></div>
+        <div class="field"><label for="e-{{ section.id }}">{{ 'contact.email' | t }}</label><input class="input" id="e-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" required value="{{ form.email }}"></div>
+        <div class="field"><label for="p-{{ section.id }}">{{ 'contact.phone' | t }}</label><input class="input" id="p-{{ section.id }}" type="tel" name="contact[phone]" autocomplete="tel" value="{{ form.phone }}"></div>
+        {%- if section.settings.event_fields -%}
+          <div class="field"><label for="d-{{ section.id }}">{{ 'contact.event_date' | t }}</label><input class="input" id="d-{{ section.id }}" type="date" name="contact[Event date]"></div>
+          <div class="field"><label for="g-{{ section.id }}">{{ 'contact.guests' | t }}</label><input class="input" id="g-{{ section.id }}" type="number" min="1" inputmode="numeric" name="contact[Guests]"></div>
+          <div class="field"><label for="t-{{ section.id }}">{{ 'contact.event_type' | t }}</label>
+            <select class="select" id="t-{{ section.id }}" name="contact[Event type]">
+              {%- assign types = section.settings.event_types | split: ',' -%}
+              {%- for ty in types -%}<option>{{ ty | strip }}</option>{%- endfor -%}
+            </select>
+          </div>
+        {%- endif -%}
+        <div class="field full"><label for="m-{{ section.id }}">{{ section.settings.message_label }}</label><textarea class="input" id="m-{{ section.id }}" name="contact[body]" required>{{ form.body }}</textarea></div>
+        <div class="full"><button type="submit" class="btn btn--tomato btn--block">{{ section.settings.button_label }}{% render 'icon', name: 'arrow' %}</button></div>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Contact form",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "inquiry" },
+    { "type": "text", "id": "kicker", "label": "Small heading", "default": "Get in touch" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Tell us what <em>you need</em>" },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "checkbox", "id": "event_fields", "label": "Show event fields (date, guests, type)", "default": false },
+    { "type": "text", "id": "event_types", "label": "Event types", "default": "Corporate or work lunch, Rehearsal dinner, Wedding, Party or celebration, Something else" },
+    { "type": "text", "id": "message_label", "label": "Message label", "default": "Message" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Send" },
+    { "type": "text", "id": "success", "label": "Success message", "default": "Thanks! We got your message and will get back to you soon." },
+    { "type": "checkbox", "id": "sand", "label": "Tinted background", "default": false }
+  ],
+  "presets": [{ "name": "Contact form" }]
+}
+{% endschema %}

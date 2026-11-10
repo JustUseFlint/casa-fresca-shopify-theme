@@ -1,0 +1,12 @@
+<section class="section" style="padding-top:clamp(40px,7vw,96px)">
+  <div class="page-width">
+    {%- unless section.settings.hide_title -%}<h1 class="h-1" data-split style="margin-bottom:clamp(26px,4vw,48px)">{{ page.title }}</h1>{%- endunless -%}
+    <div class="rte" data-reveal>{{ page.content }}</div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Page content",
+  "settings": [{ "type": "checkbox", "id": "hide_title", "label": "Hide title", "default": false }]
+}
+{% endschema %}

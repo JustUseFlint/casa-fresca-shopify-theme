@@ -1,0 +1,180 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "kicker": "How it works",
+        "heading": "Fresh meals, <em>without the cooking</em>",
+        "text": "<p>Order by Thursday at 6 PM, get your meals on Tuesday, then heat for a few minutes on the nights you need them.</p>",
+        "product": "grilled-chicken-parmesan-over-whole-wheat-penne-w-broccoli",
+        "button_label": "See this week's menu",
+        "button_link": "shopify://collections/weekly-meals",
+        "show_phone": false
+      }
+    },
+    "how": {
+      "type": "how-it-works",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "when": "By Thursday, 6 PM",
+            "title": "Pick your meals",
+            "text": "A new menu goes up every week. Choose your meals and your base, then check out online.",
+            "icon": "tap"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "when": "Monday & Tuesday",
+            "title": "We cook it fresh",
+            "text": "Chef-prepared with fresh, never-frozen ingredients, one meal to a container.",
+            "icon": "pan"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "when": "Tuesday",
+            "title": "Pickup or delivery",
+            "text": "Grab your order from the cooler at Ironsmith's Gym, or have it brought to your door.",
+            "icon": "box"
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "when": "Any night",
+            "title": "Heat and eat",
+            "text": "Two to three minutes in the microwave for a big, high-protein meal.",
+            "icon": "microwave"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4"
+      ],
+      "settings": {
+        "kicker": "Your week",
+        "heading": "Four steps, <em>one short menu</em>",
+        "text": "",
+        "dark": true,
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "pickup": {
+      "type": "pickup-delivery",
+      "blocks": {
+        "place_1": {
+          "type": "place",
+          "settings": {
+            "icon": "pin",
+            "title": "Pickup at Ironsmith's Gym",
+            "address": "1714 E Main St, Crawfordsville, IN",
+            "text": "<p>Our pickup cooler. Collect your order there on Tuesday.</p>",
+            "link": "https://www.google.com/maps/search/?api=1&query=Ironsmith%27s+Gym+1714+E+Main+St+Crawfordsville+IN",
+            "link_label": "Get directions"
+          }
+        },
+        "place_2": {
+          "type": "place",
+          "settings": {
+            "icon": "truck",
+            "title": "Delivered to your door",
+            "address": "",
+            "text": "<p>Local delivery on Tuesday. The delivery options for your address, and any fee, show at checkout.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        }
+      },
+      "block_order": [
+        "place_1",
+        "place_2"
+      ],
+      "settings": {
+        "kicker": "Pickup or delivery",
+        "heading": "Two easy ways to <em>get your meals</em>",
+        "sand": false
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "q": "When do I need to order by?",
+            "a": "<p>Thursday at 6 PM for meals the following Tuesday. The countdown at the top of the site always shows the next cut-off.</p>"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "q": "When do I get my meals?",
+            "a": "<p>Tuesday, either delivered to your door or ready in the cooler at Ironsmith's Gym, 1714 E Main St, Crawfordsville.</p>"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "q": "Does the menu change?",
+            "a": "<p>Every week. A new menu goes up each week, and favourites come back around.</p>"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "q": "How do I heat a meal?",
+            "a": "<p>Keep meals refrigerated. Microwave for 2 to 3 minutes and enjoy.</p>"
+          }
+        },
+        "item_5": {
+          "type": "item",
+          "settings": {
+            "q": "Are the meals frozen?",
+            "a": "<p>No. Everything is chef-prepared with fresh, never-frozen ingredients.</p>"
+          }
+        },
+        "item_6": {
+          "type": "item",
+          "settings": {
+            "q": "Can I add a note to my order?",
+            "a": "<p>Yes. Open your cart and use \"Order special instructions\", or call or text <a href=\"tel:+13172942433\">(317) 294-2433</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4",
+        "item_5",
+        "item_6"
+      ],
+      "settings": {
+        "kicker": "Questions",
+        "heading": "Good to know",
+        "dark": false
+      }
+    },
+    "content": {
+      "type": "main-page",
+      "settings": {
+        "hide_title": true
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "how",
+    "pickup",
+    "faq",
+    "content"
+  ]
+}

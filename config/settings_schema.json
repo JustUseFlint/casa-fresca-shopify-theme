@@ -1,0 +1,298 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Casa Fresca",
+    "theme_version": "1.0.0",
+    "theme_author": "Flint",
+    "theme_documentation_url": "https://github.com/JustUseFlint/casa-fresca-shopify-theme",
+    "theme_support_url": "https://github.com/JustUseFlint/casa-fresca-shopify-theme/issues"
+  },
+  {
+    "name": "Ordering",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "These drive the live cut-off countdown, the cart drawer reminder and the Pickup and delivery copy."
+      },
+      {
+        "type": "collection",
+        "id": "weekly_collection",
+        "label": "This week's menu collection",
+        "info": "The collection you add each week's meals to (Weekly Meals). Used for menu links, the cart drawer suggestions and \"More from this week\"."
+      },
+      {
+        "type": "collection",
+        "id": "all_collection",
+        "label": "All meals collection",
+        "info": "The full rotation (All Meals)."
+      },
+      {
+        "type": "select",
+        "id": "cutoff_day",
+        "label": "Order cut-off day",
+        "options": [
+          {
+            "value": "0",
+            "label": "Sunday"
+          },
+          {
+            "value": "1",
+            "label": "Monday"
+          },
+          {
+            "value": "2",
+            "label": "Tuesday"
+          },
+          {
+            "value": "3",
+            "label": "Wednesday"
+          },
+          {
+            "value": "4",
+            "label": "Thursday"
+          },
+          {
+            "value": "5",
+            "label": "Friday"
+          },
+          {
+            "value": "6",
+            "label": "Saturday"
+          }
+        ],
+        "default": "4"
+      },
+      {
+        "type": "text",
+        "id": "cutoff_time",
+        "label": "Order cut-off time (24-hour, HH:MM)",
+        "default": "18:00"
+      },
+      {
+        "type": "select",
+        "id": "ready_day",
+        "label": "Meals ready on",
+        "options": [
+          {
+            "value": "0",
+            "label": "Sunday"
+          },
+          {
+            "value": "1",
+            "label": "Monday"
+          },
+          {
+            "value": "2",
+            "label": "Tuesday"
+          },
+          {
+            "value": "3",
+            "label": "Wednesday"
+          },
+          {
+            "value": "4",
+            "label": "Thursday"
+          },
+          {
+            "value": "5",
+            "label": "Friday"
+          },
+          {
+            "value": "6",
+            "label": "Saturday"
+          }
+        ],
+        "default": "2"
+      },
+      {
+        "type": "select",
+        "id": "timezone",
+        "label": "Kitchen time zone",
+        "default": "America/Indiana/Indianapolis",
+        "options": [
+          {
+            "value": "America/Indiana/Indianapolis",
+            "label": "Indiana (Eastern)"
+          },
+          {
+            "value": "America/New_York",
+            "label": "Eastern"
+          },
+          {
+            "value": "America/Chicago",
+            "label": "Central"
+          },
+          {
+            "value": "America/Denver",
+            "label": "Mountain"
+          },
+          {
+            "value": "America/Los_Angeles",
+            "label": "Pacific"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "cutoff_fallback",
+        "label": "Cut-off text before JavaScript loads",
+        "default": "Thursday, 6 PM"
+      },
+      {
+        "type": "text",
+        "id": "ready_fallback",
+        "label": "Ready text before JavaScript loads",
+        "default": "Tuesday"
+      },
+      {
+        "type": "checkbox",
+        "id": "orders_paused",
+        "label": "We're taking a week off",
+        "default": false,
+        "info": "Hides the countdown and shows the message below everywhere."
+      },
+      {
+        "type": "text",
+        "id": "paused_message",
+        "label": "Week-off message",
+        "default": "We're taking this week off. The next menu goes up soon."
+      },
+      {
+        "type": "text",
+        "id": "off_menu_label",
+        "label": "Label for meals not on this week's menu",
+        "default": "Off the menu this week"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "open_drawer_on_add",
+        "label": "Open the cart drawer when adding from a meal page",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_cart_bar",
+        "label": "Show the sticky cart bar on phones",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo",
+        "info": "Leave empty to use the built-in house mark with the casa FRESCA wordmark."
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      },
+      {
+        "type": "header",
+        "content": "Colours"
+      },
+      {
+        "type": "color",
+        "id": "color_paper",
+        "label": "Background",
+        "default": "#FBF4E6"
+      },
+      {
+        "type": "color",
+        "id": "color_sand",
+        "label": "Tinted background",
+        "default": "#F3E8D2"
+      },
+      {
+        "type": "color",
+        "id": "color_card",
+        "label": "Cards",
+        "default": "#FFFDF8"
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Text",
+        "default": "#2B1B18"
+      },
+      {
+        "type": "color",
+        "id": "color_tomato",
+        "label": "Accent (tomato)",
+        "default": "#E5492F"
+      },
+      {
+        "type": "color",
+        "id": "color_gold",
+        "label": "Highlight (gold)",
+        "default": "#F1B435"
+      },
+      {
+        "type": "color",
+        "id": "color_sage",
+        "label": "Sage",
+        "default": "#8DA262"
+      },
+      {
+        "type": "color",
+        "id": "color_olive",
+        "label": "Dark sections (olive)",
+        "default": "#283219"
+      },
+      {
+        "type": "color",
+        "id": "color_roof",
+        "label": "Small headings (roof tile)",
+        "default": "#A35F35"
+      },
+      {
+        "type": "color",
+        "id": "color_night",
+        "label": "Footer and photo backdrop",
+        "default": "#0E0F0B"
+      }
+    ]
+  },
+  {
+    "name": "Contact",
+    "settings": [
+      {
+        "type": "text",
+        "id": "contact_phone",
+        "label": "Phone",
+        "default": "(317) 294-2433"
+      },
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Email",
+        "default": "casafrescameals@gmail.com"
+      },
+      {
+        "type": "text",
+        "id": "contact_area",
+        "label": "Area",
+        "default": "Crawfordsville, Indiana"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram"
+      }
+    ]
+  }
+]

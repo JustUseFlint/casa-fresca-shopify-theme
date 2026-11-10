@@ -1,0 +1,22 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "menu_shop": { "type": "menu", "settings": { "heading": "Order", "menu": "main-menu" } },
+        "menu_info": { "type": "menu", "settings": { "heading": "Info", "menu": "footer" } },
+        "contact": { "type": "contact", "settings": { "heading": "Say hello" } }
+      },
+      "block_order": ["menu_shop", "menu_info", "contact"],
+      "settings": {
+        "cta_heading": "Dinner's handled. <em>Every week.</em>",
+        "cta_label": "Plan catering",
+        "cta_link": "shopify://pages/catering",
+        "about": "Chef-made meal prep and catering from Crawfordsville, Indiana."
+      }
+    }
+  },
+  "order": ["footer"]
+}

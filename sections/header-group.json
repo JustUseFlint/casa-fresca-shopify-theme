@@ -1,0 +1,9 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement": { "type": "announcement", "settings": { "show": true, "text": "" } },
+    "header": { "type": "header", "settings": { "menu": "main-menu", "show_search": true, "show_account": true } }
+  },
+  "order": ["announcement", "header"]
+}

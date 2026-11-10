@@ -1,0 +1,76 @@
+{%- comment -%}
+  A meal with one-tap add. Params: product, show_description (bool), eager (bool), sizes
+  Keeps the standard /cart/add contract (id + quantity), so nothing about the store's checkout changes.
+{%- endcomment -%}
+{%- liquid
+  assign current = product.selected_or_first_available_variant
+  assign single_option = false
+  if product.has_only_default_variant == false and product.options.size == 1
+    assign single_option = true
+  endif
+  assign tagline = product.metafields.custom.tagline.value
+  if tagline == blank
+    assign tagline = product.description | strip_html | strip | truncate: 150
+  endif
+-%}
+<article class="meal{% unless product.available %} meal--off{% endunless %}" data-product-scope data-reveal
+  data-available="{{ product.available }}" data-price="{{ product.price }}" data-title="{{ product.title | escape }}" data-created="{{ product.created_at | date: '%s' }}">
+  <a class="meal__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+    {% render 'meal-image', product: product, eager: eager, sizes: sizes %}
+    <span class="meal__badge">
+      {%- render 'nutrition', product: product, style: 'badge' -%}
+      {%- if single_option and product.variants.size > 1 -%}<span class="chip">{{ 'products.choices' | t: count: product.variants.size, option: product.options.first | downcase }}</span>{%- endif -%}
+    </span>
+  </a>
+  <div class="meal__body">
+    <h3 class="meal__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    {%- if show_description and tagline != blank -%}<p class="meal__desc">{{ tagline }}</p>{%- endif -%}
+    {% render 'nutrition', product: product, style: 'inline' %}
+    {%- if product.available -%}
+      <form method="post" action="{{ routes.cart_add_url }}" accept-charset="UTF-8" enctype="multipart/form-data" class="meal__form" data-product-form data-card-form data-title="{{ product.title | escape }}">
+        <input type="hidden" name="form_type" value="product"><input type="hidden" name="utf8" value="✓">
+        {%- if product.has_only_default_variant -%}
+          <input type="hidden" name="id" value="{{ current.id }}" data-variant="{{ current.id }}" data-price="{{ current.price }}" data-available="{{ current.available }}">
+        {%- elsif single_option -%}
+          <fieldset class="opts">
+            <legend>{{ product.options.first }}</legend>
+            <div class="opts__list">
+              {%- for v in product.variants -%}
+                {%- assign diff = v.price | minus: product.price_min -%}
+                <label class="opt">
+                  <input type="radio" name="id" value="{{ v.id }}" data-variant="{{ v.id }}" data-price="{{ v.price }}" data-available="{{ v.available }}"{% if v.id == current.id %} checked{% endif %}{% unless v.available %} disabled{% endunless %}>
+                  <span>{{ v.title }}{% if diff > 0 %} <em>+{{ diff | money }}</em>{% endif %}</span>
+                </label>
+              {%- endfor -%}
+            </div>
+          </fieldset>
+        {%- else -%}
+          <label class="visually-hidden" for="v-{{ sid }}-{{ product.id }}">{{ 'products.choose' | t }}</label>
+          <select class="select" name="id" id="v-{{ sid }}-{{ product.id }}">
+            {%- for v in product.variants -%}
+              <option value="{{ v.id }}" data-variant="{{ v.id }}" data-price="{{ v.price }}" data-available="{{ v.available }}"{% if v.id == current.id %} selected{% endif %}{% unless v.available %} disabled{% endunless %}>{{ v.title }} &middot; {{ v.price | money }}</option>
+            {%- endfor -%}
+          </select>
+        {%- endif -%}
+        <input type="hidden" name="quantity" value="1">
+        <div class="meal__buy">
+          <span class="meal__price">{% render 'meal-price', product: product %}</span>
+          <div class="add">
+            <button type="submit" class="btn add-btn" data-add-btn aria-label="{{ 'products.add_named' | t: title: product.title | escape }}">
+              {% render 'icon', name: 'plus' %}
+              <span class="add-btn__t"><span>{{ 'products.add' | t }}</span><span>{{ 'products.added' | t }}</span></span>
+            </button>
+            <div class="stepper" data-stepper role="group" aria-label="{{ 'cart.in_cart' | t: title: product.title | escape }}" hidden>
+              <button type="button" data-step="-1" aria-label="{{ 'cart.decrease' | t }}">{% render 'icon', name: 'minus' %}</button>
+              <output aria-live="polite">0</output>
+              <button type="button" data-step="1" aria-label="{{ 'cart.increase' | t }}">{% render 'icon', name: 'plus' %}</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    {%- else -%}
+      <div class="meal__buy"><span class="meal__price">{% render 'meal-price', product: product %}</span></div>
+      <p class="meal__off">{{ settings.off_menu_label }}</p>
+    {%- endif -%}
+  </div>
+</article>

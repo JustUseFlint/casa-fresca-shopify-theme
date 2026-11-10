@@ -1,0 +1,14 @@
+<section class="section"><div class="page-width"><div class="auth">
+  <h1 class="h-1" data-split>{{ 'customer.create' | t }}</h1>
+  {%- form 'create_customer', class: 'auth' -%}
+    {%- if form.errors -%}<div class="form-msg form-msg--err">{{ form.errors | default_errors }}</div>{%- endif -%}
+    <div class="field"><label for="RFirst">{{ 'customer.first_name' | t }}</label><input class="input" name="customer[first_name]" id="RFirst" autocomplete="given-name"></div>
+    <div class="field"><label for="RLast">{{ 'customer.last_name' | t }}</label><input class="input" name="customer[last_name]" id="RLast" autocomplete="family-name"></div>
+    <div class="field"><label for="REm">{{ 'contact.email' | t }}</label><input class="input" type="email" name="customer[email]" id="REm" autocomplete="email" required></div>
+    <div class="field"><label for="RPw">{{ 'password.label' | t }}</label><input class="input" type="password" name="customer[password]" id="RPw" autocomplete="new-password" required></div>
+    <button class="btn btn--tomato btn--block" type="submit">{{ 'customer.create' | t }}</button>
+  {%- endform -%}
+</div></div></section>
+{% schema %}
+{ "name": "Register", "settings": [] }
+{% endschema %}

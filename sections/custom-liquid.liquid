@@ -1,0 +1,12 @@
+<div class="section custom-liquid">
+  <div class="page-width">{{ section.settings.custom_liquid }}</div>
+</div>
+{% schema %}
+{
+  "name": "Custom Liquid",
+  "settings": [
+    { "type": "liquid", "id": "custom_liquid", "label": "Custom Liquid", "info": "Paste HTML, Liquid or app snippets here (for example the macro calculator or nutrition quiz)." }
+  ],
+  "presets": [{ "name": "Custom Liquid" }]
+}
+{% endschema %}

@@ -1,0 +1,17 @@
+<section class="section" style="padding-top:clamp(40px,7vw,96px)">
+  <div class="page-width">
+    <h1 class="h-1" data-split style="margin-bottom:36px">{{ 'collections.title' | t }}</h1>
+    <div class="posts" data-stagger>
+      {%- for collection in collections -%}
+        <a class="post" href="{{ collection.url }}" data-reveal>
+          <div class="post__img">{%- assign img = collection.image | default: collection.products.first.featured_image -%}{%- if img -%}<img src="{{ img | image_url: width: 800 }}" width="{{ img.width }}" height="{{ img.height }}" alt="" loading="lazy">{%- endif -%}</div>
+          <h2 class="h-3">{{ collection.title }}</h2>
+          <p class="muted">{{ 'collections.count' | t: count: collection.products_count }}</p>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Collections list", "settings": [] }
+{% endschema %}

@@ -1,0 +1,37 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "kicker": "Macro calculator",
+        "heading": "Find your <em>daily macros</em>",
+        "text": "<p>Enter a few details to estimate your daily protein, carbs and fat, then pick meals that fit.</p>",
+        "button_label": "",
+        "button_link": "",
+        "show_phone": false
+      }
+    },
+    "calculator": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div class=\"macro-calculator\">\n<h2>Macro Calculator</h2>\n<p>Calculate your daily macronutrient needs with Casa Fresca!</p>\n<div class=\"input-section\">\n<label for=\"gender\">Gender:</label>\n<select id=\"gender\" required=\"\">\n<option value=\"\">Select Gender</option>\n<option value=\"male\">Male</option>\n<option value=\"female\">Female</option>\n</select>\n<label for=\"age\">Age (years):</label>\n<input id=\"age\" max=\"100\" min=\"18\" placeholder=\"Enter your age\" required=\"\" type=\"number\"/>\n<label for=\"weight\">Weight (lbs):</label>\n<input id=\"weight\" min=\"50\" placeholder=\"Enter your weight\" required=\"\" type=\"number\"/>\n<label for=\"height\">Height (inches):</label>\n<input id=\"height\" max=\"96\" min=\"48\" placeholder=\"Enter your height\" required=\"\" type=\"number\"/>\n<label for=\"activity\">Activity Level:</label>\n<select id=\"activity\" required=\"\">\n<option value=\"\">Select Activity Level</option>\n<option value=\"1.2\">Sedentary (little or no exercise)</option>\n<option value=\"1.375\">Light (exercise 1-3 days/week)</option>\n<option value=\"1.55\">Moderate (exercise 3-5 days/week)</option>\n<option value=\"1.725\">Active (exercise 6-7 days/week)</option>\n<option value=\"1.9\">Very Active (intense daily exercise)</option>\n</select>\n<label for=\"goal\">Fitness Goal:</label>\n<select id=\"goal\" required=\"\">\n<option value=\"\">Select Goal</option>\n<option value=\"maintain\">Maintain Weight</option>\n<option value=\"lose\">Fat Loss</option>\n<option value=\"gain\">Muscle Gain</option>\n</select>\n<button onclick=\"calculateMacros()\">Calculate</button>\n</div>\n<div class=\"results\" id=\"results\" style=\"display: none;\">\n<h3>Your Daily Macros</h3>\n<p><strong>Calories:</strong> <span id=\"calories\"></span> kcal</p>\n<p><strong>Protein:</strong> <span id=\"protein\"></span> g</p>\n<p><strong>Carbs:</strong> <span id=\"carbs\"></span> g</p>\n<p><strong>Fats:</strong> <span id=\"fats\"></span> g</p>\n<p>Power up with Casa Fresca's high-protein meals like our Orange Chicken &amp; Rice!</p>\n</div>\n</div>\n<style>\n  .macro-calculator {\n    max-width: 500px;\n    margin: 20px auto;\n    padding: 20px;\n    border: 1px solid #ddd;\n    border-radius: 5px;\n    background-color: #f9f9f9;\n    font-family: Arial, sans-serif;\n  }\n  .macro-calculator h2 {\n    color: #333;\n    text-align: center;\n  }\n  .macro-calculator p {\n    text-align: center;\n    color: #666;\n  }\n  .input-section label {\n    display: block;\n    margin: 10px 0 5px;\n    font-weight: bold;\n  }\n  .input-section input, .input-section select {\n    width: 100%;\n    padding: 8px;\n    margin-bottom: 10px;\n    border: 1px solid #ccc;\n    border-radius: 4px;\n  }\n  .input-section button {\n    width: 100%;\n    padding: 10px;\n    background-color: #ff6200;\n    color: white;\n    border: none;\n    border-radius: 4px;\n    cursor: pointer;\n  }\n  .input-section button:hover {\n    background-color: #e55a00;\n  }\n  .results {\n    margin-top: 20px;\n    padding: 10px;\n    background-color: #fff;\n    border: 1px solid #eee;\n    border-radius: 4px;\n  }\n  .results h3 {\n    color: #ff6200;\n    margin-top: 0;\n  }\n  .results p {\n    text-align: left;\n    margin: 5px 0;\n  }\n</style>\n<script>\n  function calculateMacros() {\n    const gender = document.getElementById('gender').value;\n    const age = parseFloat(document.getElementById('age').value);\n    const weight = parseFloat(document.getElementById('weight').value);\n    const height = parseFloat(document.getElementById('height').value);\n    const activity = parseFloat(document.getElementById('activity').value);\n    const goal = document.getElementById('goal').value;\n\n    if (!gender || !age || !weight || !height || !activity || !goal) {\n      alert('Please fill out all fields.');\n      return;\n    }\n\n    // Convert weight to kg and height to cm for Mifflin-St Jeor formula\n    const weightKg = weight * 0.453592;\n    const heightCm = height * 2.54;\n\n    // Mifflin-St Jeor BMR calculation\n    let bmr;\n    if (gender === 'male') {\n      bmr = 10 * weightKg + 6.25 * heightCm - 5 * age + 5;\n    } else {\n      bmr = 10 * weightKg + 6.25 * heightCm - 5 * age - 161;\n    }\n\n    // Adjust for activity level (TDEE)\n    let calories = bmr * activity;\n\n    // Adjust calories based on goal\n    if (goal === 'lose') {\n      calories *= 0.8; // 20% deficit\n    } else if (goal === 'gain') {\n      calories *= 1.15; // 15% surplus\n    }\n\n    // Macronutrient ratios (40% carbs, 30% protein, 30% fats)\n    const protein = (calories * 0.3) / 4; // 4 cal/g for protein\n    const carbs = (calories * 0.4) / 4;   // 4 cal/g for carbs\n    const fats = (calories * 0.3) / 9;    // 9 cal/g for fats\n\n    // Display results\n    document.getElementById('calories').textContent = Math.round(calories);\n    document.getElementById('protein').textContent = Math.round(protein);\n    document.getElementById('carbs').textContent = Math.round(carbs);\n    document.getElementById('fats').textContent = Math.round(fats);\n    document.getElementById('results').style.display = 'block';\n  }\n</script>"
+      }
+    },
+    "about": {
+      "type": "rich-text",
+      "settings": {
+        "heading": "What are Macros?",
+        "text": "<p>Macronutrients, or “macros,” are the three main nutrients your body needs in large amounts to function: protein, carbohydrates, and fats. When prepping meals, tracking macros helps you customize your diet to meet goals like fat loss, muscle gain, or maintaining energy.<br/><br/>\t•\tProtein: Builds and repairs muscles (e.g., chicken in our Orange Chicken &amp; Rice).<br/>\t•\tCarbs: Fuels your day with energy (e.g., white or brown rice options).<br/>\t•\tFats: Supports hormones and keeps you satisfied (e.g., healthy oils in our recipes).<br/><br/>With meal prep from Casa Fresca, you can enjoy delicious, balanced meals designed to hit your macro targets—making nutrition simple and tasty!</p>",
+        "button_label": "See this week's menu",
+        "button_link": "shopify://collections/weekly-meals",
+        "center": false,
+        "sand": true
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "calculator",
+    "about"
+  ]
+}

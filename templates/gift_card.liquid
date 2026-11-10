@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ 'gift_card.title' | t }} &ndash; {{ shop.name }}</title>
+    {% render 'theme-styles' %}
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
+    {{ content_for_header }}
+  </head>
+  <body>
+    <main class="section"><div class="page-width"><div class="gc">
+      {% render 'wordmark' %}
+      <h1 class="h-1">{{ gift_card.balance | money }}</h1>
+      {%- if gift_card.balance != gift_card.initial_value -%}<p class="muted">{{ 'gift_card.initial' | t: value: gift_card.initial_value | money }}</p>{%- endif -%}
+      {%- if gift_card.expired or gift_card.enabled != true -%}<p class="form-msg form-msg--err">{{ 'gift_card.disabled' | t }}</p>{%- endif -%}
+      <p class="gc__code">{{ gift_card.code | format_code }}</p>
+      <div id="QrCode" data-identifier="{{ gift_card.qr_identifier }}"></div>
+      <div class="btn-row" style="justify-content:center">
+        <a class="btn btn--tomato" href="{{ shop.url }}" target="_blank" rel="noopener">{{ 'gift_card.shop' | t }}</a>
+        {%- if gift_card.pass_url -%}<a class="btn btn--ghost" href="{{ gift_card.pass_url }}">{{ 'gift_card.wallet' | t }}</a>{%- endif -%}
+        <button class="btn btn--ghost" type="button" onclick="window.print()">{{ 'gift_card.print' | t }}</button>
+      </div>
+    </div></div></main>
+    <script>
+      window.addEventListener('load', function () {
+        var el = document.getElementById('QrCode');
+        if (window.QRCode && el) new QRCode(el, { text: el.dataset.identifier, width: 140, height: 140 });
+      });
+    </script>
+  </body>
+</html>

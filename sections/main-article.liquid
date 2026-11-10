@@ -1,0 +1,16 @@
+<article class="section" style="padding-top:clamp(40px,7vw,96px)">
+  <div class="page-width">
+    <div class="article">
+      <p class="kicker"><a href="{{ blog.url }}" style="text-decoration:none">{{ blog.title }}</a></p>
+      <h1 class="h-1" data-split>{{ article.title }}</h1>
+      <p class="muted" style="margin-top:16px"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'date' }}</time></p>
+      {%- if article.image -%}<div class="article__img" data-reveal="img"><img src="{{ article.image | image_url: width: 1400 }}" width="{{ article.image.width }}" height="{{ article.image.height }}" alt="{{ article.image.alt | escape }}"></div>{%- endif -%}
+      <div class="rte" data-reveal>{{ article.content }}</div>
+      <p style="margin-top:40px"><a class="link-arrow" href="{{ blog.url }}">{{ 'blogs.back' | t }}{% render 'icon', name: 'arrow' %}</a></p>
+    </div>
+  </div>
+</article>
+<script type="application/ld+json">{{ article | structured_data }}</script>
+{% schema %}
+{ "name": "Article", "settings": [] }
+{% endschema %}

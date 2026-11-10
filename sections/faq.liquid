@@ -1,0 +1,33 @@
+<section class="section{% if section.settings.dark %} section--dark{% endif %}" aria-labelledby="FaqH-{{ section.id }}">
+  <div class="page-width">
+    <div class="sec-head">
+      {%- if section.settings.kicker != blank -%}<p class="kicker" data-reveal>{{ section.settings.kicker }}</p>{%- endif -%}
+      <h2 class="h-2" id="FaqH-{{ section.id }}" data-split>{{ section.settings.heading }}</h2>
+    </div>
+    <div class="faq" data-stagger>
+      {%- for block in section.blocks -%}
+        <details data-reveal {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.q }}<i aria-hidden="true"></i></summary>
+          <div class="faq__a rte">{{ block.settings.a }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Small heading", "default": "Questions" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Good to know" },
+    { "type": "checkbox", "id": "dark", "label": "Dark background", "default": false }
+  ],
+  "blocks": [
+    { "type": "item", "name": "Question", "settings": [
+      { "type": "text", "id": "q", "label": "Question", "default": "Question" },
+      { "type": "richtext", "id": "a", "label": "Answer", "default": "<p>Answer</p>" }
+    ]}
+  ],
+  "presets": [{ "name": "FAQ", "blocks": [{ "type": "item" }, { "type": "item" }] }]
+}
+{% endschema %}

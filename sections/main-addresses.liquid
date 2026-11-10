@@ -1,0 +1,31 @@
+<section class="section"><div class="page-width" style="display:grid;gap:24px;max-width:760px">
+  <p><a class="link" href="{{ routes.account_url }}">{{ 'customer.account' | t }}</a></p>
+  <h1 class="h-1" data-split>{{ 'customer.addresses' | t }}</h1>
+  {%- paginate customer.addresses by 10 -%}
+    {%- for address in customer.addresses -%}
+      <div class="form-card" style="display:grid;gap:10px">
+        <div>{{ address | format_address }}</div>
+        {%- form 'customer_address', address, class: 'form-grid' -%}
+          <div class="field"><label for="A1-{{ address.id }}">{{ 'customer.address1' | t }}</label><input class="input" id="A1-{{ address.id }}" name="address[address1]" value="{{ form.address1 }}"></div>
+          <div class="field"><label for="AC-{{ address.id }}">{{ 'customer.city' | t }}</label><input class="input" id="AC-{{ address.id }}" name="address[city]" value="{{ form.city }}"></div>
+          <div class="field"><label for="AZ-{{ address.id }}">{{ 'customer.zip' | t }}</label><input class="input" id="AZ-{{ address.id }}" name="address[zip]" value="{{ form.zip }}"></div>
+          <div class="field"><label for="AP-{{ address.id }}">{{ 'contact.phone' | t }}</label><input class="input" id="AP-{{ address.id }}" name="address[phone]" value="{{ form.phone }}"></div>
+          <div class="full"><button class="btn btn--tomato btn--sm" type="submit">{{ 'customer.save' | t }}</button></div>
+        {%- endform -%}
+      </div>
+    {%- endfor -%}
+  {%- endpaginate -%}
+  <h2 class="h-3">{{ 'customer.add_address' | t }}</h2>
+  {%- form 'customer_address', customer.new_address, class: 'form-grid form-card' -%}
+    <div class="field"><label for="NF">{{ 'customer.first_name' | t }}</label><input class="input" id="NF" name="address[first_name]" autocomplete="given-name"></div>
+    <div class="field"><label for="NL">{{ 'customer.last_name' | t }}</label><input class="input" id="NL" name="address[last_name]" autocomplete="family-name"></div>
+    <div class="field full"><label for="N1">{{ 'customer.address1' | t }}</label><input class="input" id="N1" name="address[address1]" autocomplete="address-line1"></div>
+    <div class="field"><label for="NC">{{ 'customer.city' | t }}</label><input class="input" id="NC" name="address[city]" autocomplete="address-level2"></div>
+    <div class="field"><label for="NZ">{{ 'customer.zip' | t }}</label><input class="input" id="NZ" name="address[zip]" autocomplete="postal-code"></div>
+    <input type="hidden" name="address[country]" value="United States"><input type="hidden" name="address[province]" value="Indiana">
+    <div class="full"><button class="btn btn--tomato" type="submit">{{ 'customer.add_address' | t }}</button></div>
+  {%- endform -%}
+</div></section>
+{% schema %}
+{ "name": "Addresses", "settings": [] }
+{% endschema %}

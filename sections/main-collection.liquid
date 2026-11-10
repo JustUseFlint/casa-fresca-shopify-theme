@@ -1,0 +1,123 @@
+{%- paginate collection.products by section.settings.per_page -%}
+{%- liquid
+  assign active_count = 0
+  for filter in collection.filters
+    assign active_count = active_count | plus: filter.active_values.size
+    if filter.type == 'price_range'
+      if filter.min_value.value != nil or filter.max_value.value != nil
+        assign active_count = active_count | plus: 1
+      endif
+    endif
+  endfor
+  assign sort_by = collection.sort_by | default: collection.default_sort_by
+  assign weekly = settings.weekly_collection
+  assign all = settings.all_collection
+-%}
+<div class="coll-head">
+  <div class="page-width" style="display:grid;gap:16px">
+    {%- if section.settings.kicker != blank -%}<p class="kicker" data-reveal>{{ section.settings.kicker }}</p>{%- endif -%}
+    <h1 class="h-1" data-split>{{ collection.title }}</h1>
+    <span class="coll-count" data-reveal>{{ 'collections.count' | t: count: collection.products_count }}</span>
+    {%- if collection.description != blank -%}<div class="lede rte" data-reveal>{{ collection.description }}</div>{%- endif -%}
+    {%- if weekly != blank or all != blank -%}
+      <nav class="coll-tabs" aria-label="{{ 'collections.menus' | t }}" data-reveal>
+        {%- if weekly != blank -%}<a class="tab" href="{{ weekly.url }}"{% if weekly.handle == collection.handle %} aria-current="page"{% endif %}>{{ 'collections.this_week' | t }}</a>{%- endif -%}
+        {%- if all != blank -%}<a class="tab" href="{{ all.url }}"{% if all.handle == collection.handle %} aria-current="page"{% endif %}>{{ 'collections.all_meals' | t }}</a>{%- endif -%}
+      </nav>
+    {%- endif -%}
+  </div>
+</div>
+<form class="toolbar" action="{{ collection.url }}" method="get" data-facets id="Facets-{{ section.id }}">
+  <div class="page-width toolbar__in">
+    <span class="toolbar__count" role="status">{{ 'collections.count' | t: count: collection.products_count }}</span>
+    {%- for filter in collection.filters -%}
+      {%- if filter.param_name == 'filter.v.availability' -%}
+        {%- for value in filter.values -%}
+          {%- if value.value == '1' -%}
+            <a class="tab" style="min-height:42px" href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}"{% if value.active %} aria-current="page"{% endif %}>{{ 'collections.available_now' | t }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if collection.filters != empty -%}
+      <button type="button" class="btn btn--ghost btn--sm" data-sheet-open aria-controls="Sheet-{{ section.id }}">{% render 'icon', name: 'filter' %}{{ 'collections.filter' | t }}{% if active_count > 0 %} ({{ active_count }}){% endif %}</button>
+    {%- endif -%}
+    <label class="visually-hidden" for="Sort-{{ section.id }}">{{ 'collections.sort' | t }}</label>
+    <select class="select" name="sort_by" id="Sort-{{ section.id }}" data-autosubmit style="max-width:46vw">
+      {%- for option in collection.sort_options -%}<option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>{%- endfor -%}
+    </select>
+  </div>
+  {%- if collection.filters != empty -%}
+  <div class="sheet" id="Sheet-{{ section.id }}" data-sheet role="dialog" aria-modal="true" aria-label="{{ 'collections.filter' | t }}">
+    <div class="sheet__grip"></div>
+    <div class="sheet__head"><h2 class="h-3">{{ 'collections.filter' | t }}</h2><button type="button" class="icon-btn" data-sheet-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button></div>
+    {%- for filter in collection.filters -%}
+      <fieldset>
+        <legend>{{ filter.label }}</legend>
+        {%- case filter.type -%}
+          {%- when 'price_range' -%}
+            <div class="price-range">
+              <div class="field"><label for="Min-{{ section.id }}">{{ 'collections.from' | t }}</label><input class="input" type="number" inputmode="decimal" id="Min-{{ section.id }}" name="{{ filter.min_value.param_name }}" value="{% if filter.min_value.value %}{{ filter.min_value.value | money_without_currency | replace: ',', '' }}{% endif %}" placeholder="0" min="0"></div>
+              <div class="field"><label for="Max-{{ section.id }}">{{ 'collections.to' | t }}</label><input class="input" type="number" inputmode="decimal" id="Max-{{ section.id }}" name="{{ filter.max_value.param_name }}" value="{% if filter.max_value.value %}{{ filter.max_value.value | money_without_currency | replace: ',', '' }}{% endif %}" placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}" min="0"></div>
+            </div>
+          {%- else -%}
+            <div class="opts__list">
+              {%- for value in filter.values -%}
+                <label class="toggle-chip">
+                  <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %}>
+                  <span>{{ value.label }} <em class="muted" style="font-style:normal">{{ value.count }}</em></span>
+                </label>
+              {%- endfor -%}
+            </div>
+        {%- endcase -%}
+      </fieldset>
+    {%- endfor -%}
+    <div class="btn-row" style="margin-top:18px">
+      <button type="submit" class="btn btn--tomato">{{ 'collections.apply' | t }}</button>
+      <a class="btn btn--ghost" href="{{ collection.url }}?sort_by={{ sort_by }}">{{ 'collections.clear' | t }}</a>
+    </div>
+  </div>
+  {%- endif -%}
+</form>
+<div class="page-width" style="padding-bottom:var(--sec-y)">
+  {%- if active_count > 0 -%}
+    <div class="active-filters">
+      {%- for filter in collection.filters -%}
+        {%- for value in filter.active_values -%}<a href="{{ value.url_to_remove }}">{{ value.label }}{% render 'icon', name: 'close' %}</a>{%- endfor -%}
+        {%- if filter.type == 'price_range' and filter.url_to_remove != blank -%}
+          {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}<a href="{{ filter.url_to_remove }}">{{ filter.min_value.value | default: 0 | money }}&ndash;{{ filter.max_value.value | default: filter.range_max | money }}{% render 'icon', name: 'close' %}</a>{%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+  {%- if collection.products.size > 0 -%}
+    <div class="meal-grid" data-stagger data-grid>
+      {%- for product in collection.products -%}
+        {%- liquid
+          assign eager = false
+          if forloop.index <= 2
+            assign eager = true
+          endif
+        -%}
+        {% render 'meal-card', product: product, show_description: section.settings.show_description, eager: eager, sid: section.id %}
+      {%- endfor -%}
+    </div>
+    {% render 'pagination', paginate: paginate %}
+  {%- else -%}
+    <div class="empty">
+      <p class="h-3">{{ 'collections.no_matches' | t }}</p>
+      <a class="btn btn--ghost" href="{{ collection.url }}">{{ 'collections.clear' | t }}</a>
+    </div>
+  {%- endif -%}
+</div>
+{%- endpaginate -%}
+{% schema %}
+{
+  "name": "Collection grid",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Small heading", "default": "Order online" },
+    { "type": "range", "id": "per_page", "label": "Meals per page", "min": 8, "max": 48, "step": 4, "default": 24 },
+    { "type": "checkbox", "id": "show_description", "label": "Show short descriptions", "default": false }
+  ]
+}
+{% endschema %}

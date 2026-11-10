@@ -1,0 +1,45 @@
+{%- liquid
+  assign coll = section.settings.collection
+  if coll == blank
+    assign coll = collections['all-meals']
+  endif
+-%}
+<section class="section" aria-labelledby="RotH-{{ section.id }}">
+  <div class="page-width">
+    <div class="sec-head sec-head--row">
+      <div style="display:grid;gap:14px">
+        {%- if section.settings.kicker != blank -%}<p class="kicker" data-reveal>{{ section.settings.kicker }}</p>{%- endif -%}
+        <h2 class="h-2" id="RotH-{{ section.id }}" data-split>{{ section.settings.heading }}</h2>
+        {%- if section.settings.text != blank -%}<p class="lede" data-reveal>{{ section.settings.text }}</p>{%- endif -%}
+      </div>
+      <a class="btn btn--ghost" href="{{ coll.url }}" data-reveal>{{ section.settings.button_label | default: coll.title }}{% render 'icon', name: 'arrow' %}</a>
+    </div>
+  </div>
+  <div class="strip-wrap" data-reveal>
+    {%- capture tiles -%}
+      {%- assign shown = 0 -%}
+      {%- for p in coll.products -%}
+        {%- if shown >= section.settings.limit -%}{%- break -%}{%- endif -%}
+        {%- assign f = p.featured_image.src | downcase -%}
+        {%- if p.featured_image == blank or f contains 'photocomingsoon' -%}{%- continue -%}{%- endif -%}
+        <a href="{{ p.url }}" title="{{ p.title | escape }}"><img src="{{ p.featured_image | image_url: width: 480, height: 480, crop: 'center' }}" width="480" height="480" alt="{{ p.title | escape }}" loading="lazy"></a>
+        {%- assign shown = shown | plus: 1 -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    <div class="strip" style="--dur: {{ section.settings.limit | times: 5 }}s">{{ tiles }}<span style="display:contents" aria-hidden="true">{{ tiles | replace: '<a ', '<a tabindex="-1" ' }}</span></div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Meal rotation strip",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Casa Fresca uses \"All Meals\"." },
+    { "type": "range", "id": "limit", "label": "Photos", "min": 6, "max": 30, "step": 1, "default": 16 },
+    { "type": "text", "id": "kicker", "label": "Small heading", "default": "The rotation" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Eighty-plus meals, <em>and counting</em>" },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Browse all meals" }
+  ],
+  "presets": [{ "name": "Meal rotation strip" }]
+}
+{% endschema %}

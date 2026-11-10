@@ -1,0 +1,14 @@
+<section class="section"><div class="page-width" style="display:grid;gap:24px">
+  <p><a class="link" href="{{ routes.account_url }}">{{ 'customer.account' | t }}</a></p>
+  <h1 class="h-1" data-split>{{ 'customer.order' | t }} {{ order.name }}</h1>
+  <p class="muted">{{ order.created_at | date: format: 'date' }} &middot; {{ order.financial_status_label }} &middot; {{ order.fulfillment_status_label }}</p>
+  <div style="overflow-x:auto"><table class="table">
+    <thead><tr><th>{{ 'customer.item' | t }}</th><th>{{ 'cart.quantity' | t }}</th><th>{{ 'cart.subtotal' | t }}</th></tr></thead>
+    <tbody>{%- for line in order.line_items -%}<tr><td>{{ line.title }}</td><td>{{ line.quantity }}</td><td>{{ line.final_line_price | money }}</td></tr>{%- endfor -%}</tbody>
+    <tfoot><tr><th colspan="2">{{ 'customer.total' | t }}</th><td>{{ order.total_price | money }}</td></tr></tfoot>
+  </table></div>
+  {%- if order.note != blank -%}<p><b>{{ 'cart.note' | t }}:</b> {{ order.note }}</p>{%- endif -%}
+</div></section>
+{% schema %}
+{ "name": "Order", "settings": [] }
+{% endschema %}

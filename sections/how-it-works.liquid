@@ -1,0 +1,47 @@
+<section class="section{% if section.settings.dark %} section--dark{% endif %}" aria-labelledby="HowH-{{ section.id }}">
+  <div class="page-width">
+    <div class="sec-head">
+      {%- if section.settings.kicker != blank -%}<p class="kicker" data-reveal>{{ section.settings.kicker }}</p>{%- endif -%}
+      <h2 class="h-1" id="HowH-{{ section.id }}" data-split>{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="lede" data-reveal>{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <ol class="steps" data-stagger>
+      {%- for block in section.blocks -%}
+        <li class="step" data-reveal{% if block.settings.days != blank %} data-day="{{ block.settings.days }}"{% endif %} {{ block.shopify_attributes }}>
+          <span class="step__when">{{ block.settings.when }}</span>
+          <span class="step__icon">{% render 'icon', name: block.settings.icon %}</span>
+          <h3 class="h-3">{{ block.settings.title }} <span class="step__today">&middot; {{ 'ordering.today' | t }}</span></h3>
+          <p>{{ block.settings.text }}</p>
+        </li>
+      {%- endfor -%}
+    </ol>
+    {%- if section.settings.button_label != blank -%}
+      <div class="btn-row" style="margin-top:34px" data-reveal><a class="btn btn--tomato" href="{{ section.settings.button_link | default: settings.weekly_collection.url }}">{{ section.settings.button_label }}{% render 'icon', name: 'arrow' %}</a></div>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "How it works",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Small heading", "default": "How a week works" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Order Thursday. <em>Eat well</em> all week." },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "checkbox", "id": "dark", "label": "Dark background", "default": false },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [
+    { "type": "step", "name": "Step", "settings": [
+      { "type": "text", "id": "when", "label": "When", "default": "By Thursday, 6 PM" },
+      { "type": "text", "id": "title", "label": "Title", "default": "Pick your meals" },
+      { "type": "textarea", "id": "text", "label": "Text" },
+      { "type": "select", "id": "icon", "label": "Icon", "default": "tap", "options": [
+        { "value": "tap", "label": "Phone" }, { "value": "pan", "label": "Pan" }, { "value": "box", "label": "Box" }, { "value": "microwave", "label": "Microwave" }
+      ]},
+      { "type": "text", "id": "days", "label": "Highlight on weekdays", "info": "Comma-separated, 0 = Sunday … 6 = Saturday. The step gets a \"Today\" tag on these days." }
+    ]}
+  ],
+  "presets": [{ "name": "How it works", "blocks": [{ "type": "step" }, { "type": "step" }, { "type": "step" }] }]
+}
+{% endschema %}

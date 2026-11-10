@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="theme-color" content="{{ settings.color_paper }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
+    {%- else -%}
+      <link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
+    {%- endif -%}
+    <link rel="apple-touch-icon" href="{{ 'apple-touch-icon.png' | asset_url }}">
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif -%}
+      {%- if current_page != 1 %} &ndash; {{ 'general.page' | t: page: current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+    {% render 'meta-tags' %}
+    {{ 'bricolage.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+    {% render 'theme-styles' %}
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    <script>
+      document.documentElement.classList.replace('no-js', 'js');
+      window.CF = {
+        moneyFormat: {{ shop.money_format | json }},
+        routes: {
+          root: {{ routes.root_url | json }},
+          cart: {{ routes.cart_url | json }},
+          cart_add: {{ routes.cart_add_url | json }},
+          cart_change: {{ routes.cart_change_url | json }},
+          cart_update: {{ routes.cart_update_url | json }}
+        },
+        settings: {
+          cutoffDay: {{ settings.cutoff_day | json }},
+          cutoffTime: {{ settings.cutoff_time | json }},
+          readyDay: {{ settings.ready_day | json }},
+          timezone: {{ settings.timezone | json }},
+          ordersPaused: {{ settings.orders_paused | json }},
+          openDrawerOnAdd: {{ settings.open_drawer_on_add | json }}
+        },
+        strings: {
+          added: {{ 'cart.added' | t: title: '__title__' | json }},
+          error: {{ 'cart.error' | t | json }},
+          remove: {{ 'cart.remove' | t | json }},
+          quantity: {{ 'cart.quantity' | t | json }},
+          increase: {{ 'cart.increase' | t | json }},
+          decrease: {{ 'cart.decrease' | t | json }},
+          meal_one: {{ 'cart.meal_one' | t | json }},
+          meal_other: {{ 'cart.meal_other' | t | json }},
+          left_days: {{ 'ordering.left_days' | t: d: '__d__', h: '__h__' | json }},
+          left_hours: {{ 'ordering.left_hours' | t: h: '__h__', m: '__m__' | json }},
+          left_minutes: {{ 'ordering.left_minutes' | t: m: '__m__' | json }}
+        }
+      };
+    </script>
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+    {{ content_for_header }}
+  </head>
+  <body class="template-{{ template.name | handle }}{% if template.suffix != blank %} template-{{ template.name | handle }}--{{ template.suffix | handle }}{% endif %}">
+    <a class="skip-link" href="#MainContent">{{ 'general.skip' | t }}</a>
+    {% sections 'header-group' %}
+    <main id="MainContent" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+    {% sections 'footer-group' %}
+    {% section 'cart-drawer' %}
+    {% render 'cart-bar' %}
+    <div class="overlay" data-overlay></div>
+  </body>
+</html>
